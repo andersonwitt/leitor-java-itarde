@@ -1,64 +1,87 @@
 import java.awt.event.ActionEvent;
+import java.io.File;
+
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPasswordField;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class App extends JFrame {
-    private JLabel lblUsuario;
-    private JTextField txfUsuario;
-    private JLabel lblLogin;
-    private JLabel lblSenha;
-    private JPasswordField psfSenha;
-    private JButton btnEntrar;
+  private JLabel lblChooser;
+  private JFileChooser txfChooser;
+  private JButton btnImportar;
+  private JTextField txtCaminho;
+  private FileNameExtensionFilter fneFilter;
 
-    public App() {
-        setTitle("Login do Cliente");
-        setResizable(false);
-        setSize(360, 360);
-        setLayout(null);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        ComponentesLogin();
-        setVisible(true);
-    }
+  public App() {
+    setTitle("Leitor Java Itarde");
+    setResizable(false);
+    setSize(900, 500);
+    setLayout(null);
+    setLocationRelativeTo(null);
+    setDefaultCloseOperation(EXIT_ON_CLOSE);
+    ComponentesLogin();
+    setVisible(true);
+  }
 
-    public void ComponentesLogin() {
-        lblLogin = new JLabel("LOGIN");
-        lblLogin.setBounds(160, 20, 50, 25);
-        getContentPane().add(lblLogin);
+  public void ComponentesLogin() {
+    lblChooser = new JLabel("Importe seu arquivo para inserir no banco:");
+    lblChooser.setBounds(20, 20, 300, 25);
+    getContentPane().add(lblChooser);
 
-        lblUsuario = new JLabel("Usuário:");
-        lblUsuario.setBounds(20, 60, 50, 25);
-        getContentPane().add(lblUsuario);
+    txfChooser = new JFileChooser();
+    txfChooser.setBounds(20, 60, 300, 400);
 
-        txfUsuario = new JTextField();
-        txfUsuario.setBounds(80, 60, 200, 25);
-        getContentPane().add(txfUsuario);
+    fneFilter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
+    txfChooser.setFileFilter(fneFilter);
 
-        lblSenha = new JLabel("Senha:");
-        lblSenha.setBounds(28, 90, 50, 25);
-        getContentPane().add(lblSenha);
+    txtCaminho = new JTextField();
+    txtCaminho.setBounds(20, 60, 640, 25);
+    txtCaminho.setEditable(false);
+    getContentPane().add(txtCaminho);
 
-        psfSenha = new JPasswordField();
-        psfSenha.setBounds(80, 90, 200, 25);
-        getContentPane().add(psfSenha);
+    btnImportar = new JButton(new AbstractAction("Importar o arquivo") {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        int retorno = -1;
 
-        // btnEntrar = new JButton(new AbstractAction("Entrar") {
-        // @Override
-        // public void actionPerformed(ActionEvent e) {
-        // if (txfUsuario.getText().equals("admin") &&
-        // psfSenha.getPassword().equals("admin")) {
-        // new Inicio();
-        // dispose();
+        while (retorno == -1 || retorno == JFileChooser.APPROVE_OPTION) {
+          retorno = txfChooser.showOpenDialog(null);
+          if (retorno != JFileChooser.APPROVE_OPTION) {
+            break;
+          }
+          File arquivoSelecionado = txfChooser.getSelectedFile();
+          if (!arquivoSelecionado.getName().endsWith(".txt")) {
+            JOptionPane.showMessageDialog(null, "O arquivo deve ser do tipo .txt");
+          } else {
+            txtCaminho.setText(txfChooser.getSelectedFile().getAbsolutePath());
+            break;
+          }
+        }
+
+        // if (retorno == JFileChooser.APPROVE_OPTION) {
+        // while (!txfChooser.getSelectedFile().getName().endsWith(".txt") && retorno ==
+        // JFileChooser.APPROVE_OPTION) {
+
+        // File arquivoSelecionado = txfChooser.getSelectedFile();
+        // if (!arquivoSelecionado.getName().endsWith(".txt")) {
+
+        // JOptionPane.showMessageDialog(null, "O arquivo deve ser do tipo .txt");
+        // retorno = txfChooser.showOpenDialog(null);
         // }
         // }
-        // });
-        //btnEntrar.setBounds(80, 120, 200, 25);
-        //getContentPane().add(btnEntrar);
-    }
+        // txtCaminho.setText(txfChooser.getSelectedFile().getAbsolutePath());
+        // }
 
- 
+      }
+    });
+    btnImportar.setBounds(665, 60, 200, 25);
+    getContentPane().add(btnImportar);
+  }
+
 }
