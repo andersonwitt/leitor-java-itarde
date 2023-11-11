@@ -3,7 +3,6 @@ import java.io.File;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,17 +24,17 @@ public class App extends JFrame {
     setLayout(null);
     setLocationRelativeTo(null);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
-    ComponentesLogin();
+    ComponentesLoyout();
     setVisible(true);
   }
 
-  public void ComponentesLogin() {
-    lblChooser = new JLabel("Importe seu arquivo para inserir no banco:");
-    lblChooser.setBounds(20, 20, 300, 25);
-    getContentPane().add(lblChooser);
-
+  public void ComponentesLoyout() {
     txfChooser = new JFileChooser();
     txfChooser.setBounds(20, 60, 300, 400);
+
+    lblChooser = new JLabel("Importe seu arquivo para armazenar no banco:");
+    lblChooser.setBounds(20, 20, 300, 25);
+    getContentPane().add(lblChooser);
 
     fneFilter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
     txfChooser.setFileFilter(fneFilter);
@@ -63,25 +62,12 @@ public class App extends JFrame {
             break;
           }
         }
-
-        // if (retorno == JFileChooser.APPROVE_OPTION) {
-        // while (!txfChooser.getSelectedFile().getName().endsWith(".txt") && retorno ==
-        // JFileChooser.APPROVE_OPTION) {
-
-        // File arquivoSelecionado = txfChooser.getSelectedFile();
-        // if (!arquivoSelecionado.getName().endsWith(".txt")) {
-
-        // JOptionPane.showMessageDialog(null, "O arquivo deve ser do tipo .txt");
-        // retorno = txfChooser.showOpenDialog(null);
-        // }
-        // }
-        // txtCaminho.setText(txfChooser.getSelectedFile().getAbsolutePath());
-        // }
-
       }
     });
     btnImportar.setBounds(665, 60, 200, 25);
     getContentPane().add(btnImportar);
+
+    
   }
 
 }
