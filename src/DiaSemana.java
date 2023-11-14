@@ -1,6 +1,6 @@
 import java.util.HashMap;
 
-public class DiaDaSemana {
+public class DiaSemana {
   public final static HashMap<String, String> diaDaSemana = new HashMap<>() {
     {
       put("01", "Domingo");
