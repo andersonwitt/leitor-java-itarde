@@ -1,7 +1,7 @@
 import java.util.HashMap;
 
 public class Disciplina {
-  public final static HashMap<String, String> disciplina = new HashMap<>() {
+  public final static HashMap<String, String> disciplina = new HashMap<String, String>() {
     {
       // 1ª Fase
       put("10854", "(Ncc)-Fundamentos Matemáticos");
