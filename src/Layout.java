@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.io.File;
 
@@ -13,7 +14,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 public class Layout extends JFrame {
   private JLabel lblChooser;
@@ -39,16 +42,33 @@ public class Layout extends JFrame {
   private JScrollPane scrollPaneProfessor;
   private JButton btnLimpar;
   private JButton btnInserir;
+  private JTableHeader headerCurso;
+  private JTableHeader headerFase;
+  private JTableHeader headerDisciplina;
+  private JTableHeader headerProfessor;
 
   public Layout() {
     setTitle("Leitor Java Itarde");
     setResizable(false);
-    setSize(900, 680);
+    setSize(900, 780);
     setLayout(null);
     setLocationRelativeTo(null);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     ComponentesLayout();
     setVisible(true);
+  }
+
+  public void colorHeaderTable(JTableHeader header) {
+    header.setDefaultRenderer(new DefaultTableCellRenderer() {
+      @Override
+      public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+          int row, int column) {
+        super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+        setBackground(Color.decode("#4464AD"));
+        setForeground(Color.WHITE);
+        return this;
+      }
+    });
   }
 
   public void ComponentesLayout() {
@@ -74,43 +94,51 @@ public class Layout extends JFrame {
     Object[] disciplinaColumns = { "Código", "Nome", "Dia da Semana", "Quantidade de Professores" };
 
     lblCurso = new JLabel("Cursos:");
-    lblCurso.setBounds(20, 20, 300, 25);
+    lblCurso.setBounds(20, 100, 300, 25);
     getContentPane().add(lblCurso);
 
     mdlCurso = new DefaultTableModel(data, columns);
     tblCurso = new JTable(mdlCurso);
+    headerCurso = tblCurso.getTableHeader();
+    colorHeaderTable(headerCurso);
     scrollPaneCurso = new JScrollPane(tblCurso);
-    scrollPaneCurso.setBounds(20, 100, 845, 100);
+    scrollPaneCurso.setBounds(20, 125, 845, 100);
     getContentPane().add(scrollPaneCurso);
 
     lblFase = new JLabel("Fases:");
-    lblFase.setBounds(20, 20, 300, 25);
+    lblFase.setBounds(20, 230, 300, 25);
     getContentPane().add(lblFase);
 
     mdlFase = new DefaultTableModel(data, columns);
     tblFase = new JTable(mdlFase);
+    headerFase = tblFase.getTableHeader();
+    colorHeaderTable(headerFase);
     scrollPaneFase = new JScrollPane(tblFase);
-    scrollPaneFase.setBounds(20, 215, 845, 100);
+    scrollPaneFase.setBounds(20, 255, 845, 100);
     getContentPane().add(scrollPaneFase);
 
     lblDisciplina = new JLabel("Disciplinas:");
-    lblDisciplina.setBounds(20, 20, 300, 25);
+    lblDisciplina.setBounds(20, 360, 300, 25);
     getContentPane().add(lblDisciplina);
 
     mdlDisciplina = new DefaultTableModel(data, disciplinaColumns);
     tblDisciplina = new JTable(mdlDisciplina);
+    headerDisciplina = tblDisciplina.getTableHeader();
+    colorHeaderTable(headerDisciplina);
     scrollPaneDisciplina = new JScrollPane(tblDisciplina);
-    scrollPaneDisciplina.setBounds(20, 330, 845, 100);
+    scrollPaneDisciplina.setBounds(20, 385, 845, 100);
     getContentPane().add(scrollPaneDisciplina);
 
     lblProfessor = new JLabel("Professores:");
-    lblProfessor.setBounds(20, 20, 300, 25);
+    lblProfessor.setBounds(20, 490, 300, 25);
     getContentPane().add(lblProfessor);
 
     mdlProfessor = new DefaultTableModel(new Object[][] {}, professoresColumns);
     tblProfessor = new JTable(mdlProfessor);
+    headerProfessor = tblProfessor.getTableHeader();
+    colorHeaderTable(headerProfessor);
     scrollPaneProfessor = new JScrollPane(tblProfessor);
-    scrollPaneProfessor.setBounds(20, 445, 845, 100);
+    scrollPaneProfessor.setBounds(20, 515, 845, 100);
     getContentPane().add(scrollPaneProfessor);
 
     btnLimpar = new JButton(new AbstractAction("Limpar campos") {
@@ -118,8 +146,9 @@ public class Layout extends JFrame {
       public void actionPerformed(ActionEvent e) {
       }
     });
-    btnLimpar.setBounds(20, 560, 200, 40);
-    btnLimpar.setBackground(Color.RED);
+    btnLimpar.setBounds(20, 630, 200, 40);
+    btnLimpar.setForeground(Color.WHITE);
+    btnLimpar.setBackground(Color.decode("#CA3C25"));
     btnLimpar.setBorder(new LineBorder(Color.BLACK));
     getContentPane().add(btnLimpar);
 
@@ -164,8 +193,9 @@ public class Layout extends JFrame {
       public void actionPerformed(ActionEvent e) {
       }
     });
-    btnInserir.setBounds(663, 560, 200, 40);
-    btnInserir.setBackground(Color.GREEN);
+    btnInserir.setBounds(663, 630, 200, 40);
+    btnInserir.setForeground(Color.WHITE);
+    btnInserir.setBackground(Color.decode("#7FB069"));
     btnInserir.setBorder(new LineBorder(Color.BLACK));
     getContentPane().add(btnInserir);
   }
