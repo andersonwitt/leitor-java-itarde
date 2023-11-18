@@ -1,3 +1,5 @@
+import Listas.TituloDocente;
+
 public class Professor {
     public String Nome;
     public String TituloID;

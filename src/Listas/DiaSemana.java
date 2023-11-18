@@ -1,7 +1,8 @@
+package Listas;
 import java.util.HashMap;
 
 public class DiaSemana {
-  public final static HashMap<String, String> diaDaSemana = new HashMap<String, String>() {
+  public final static HashMap<String, String> items = new HashMap<String, String>() {
     {
       put("01", "Domingo");
       put("02", "Segunda-Feira");

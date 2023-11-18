@@ -67,37 +67,11 @@ public class Layout extends JFrame {
     txtCaminho.setEditable(false);
     getContentPane().add(txtCaminho);
 
-    btnImportar = new JButton(new AbstractAction("Importar o arquivo") {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        int retorno = -1;
-
-        while (retorno == -1 || retorno == JFileChooser.APPROVE_OPTION) {
-          retorno = txfChooser.showOpenDialog(null);
-          if (retorno != JFileChooser.APPROVE_OPTION) {
-            break;
-          }
-          File arquivoSelecionado = txfChooser.getSelectedFile();
-          if (!arquivoSelecionado.getName().endsWith(".txt")) {
-            JOptionPane.showMessageDialog(null, "O arquivo deve ser do tipo .txt");
-          } else {
-            txtCaminho.setText(txfChooser.getSelectedFile().getAbsolutePath());
-            break;
-          }
-        }
-      }
-    });
-    btnImportar.setBounds(665, 60, 200, 25);
-    btnImportar.setBackground(Color.BLUE);
-    btnImportar.setBorder(new LineBorder(Color.BLACK));
-    getContentPane().add(btnImportar);
-
     // Dados
-    Object[][] data = {
-        { "214124124", "Anderson", "Pessoa" },
-        { "2131231", "Douglas", "Pessoa" },
-    };
-    Object[] columns = { "Codigo", "Name", "Description" };
+    Object[][] data = {};
+    Object[] columns = { "Name", "Description" };
+    Object[] professoresColumns = { "Nome", "Título" };
+    Object[] disciplinaColumns = { "Código", "Nome", "Dia da Semana", "Quantidade de Professores" };
 
     lblCurso = new JLabel("Cursos:");
     lblCurso.setBounds(20, 20, 300, 25);
@@ -123,7 +97,7 @@ public class Layout extends JFrame {
     lblDisciplina.setBounds(20, 20, 300, 25);
     getContentPane().add(lblDisciplina);
 
-    mdlDisciplina = new DefaultTableModel(data, columns);
+    mdlDisciplina = new DefaultTableModel(data, disciplinaColumns);
     tblDisciplina = new JTable(mdlDisciplina);
     scrollPaneDisciplina = new JScrollPane(tblDisciplina);
     scrollPaneDisciplina.setBounds(20, 330, 845, 100);
@@ -133,7 +107,7 @@ public class Layout extends JFrame {
     lblProfessor.setBounds(20, 20, 300, 25);
     getContentPane().add(lblProfessor);
 
-    mdlProfessor = new DefaultTableModel(data, columns);
+    mdlProfessor = new DefaultTableModel(new Object[][] {}, professoresColumns);
     tblProfessor = new JTable(mdlProfessor);
     scrollPaneProfessor = new JScrollPane(tblProfessor);
     scrollPaneProfessor.setBounds(20, 445, 845, 100);
@@ -148,6 +122,42 @@ public class Layout extends JFrame {
     btnLimpar.setBackground(Color.RED);
     btnLimpar.setBorder(new LineBorder(Color.BLACK));
     getContentPane().add(btnLimpar);
+
+    btnImportar = new JButton(new AbstractAction("Importar o arquivo") {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        int retorno = -1;
+
+        while (retorno == -1 || retorno == JFileChooser.APPROVE_OPTION) {
+          retorno = txfChooser.showOpenDialog(null);
+          if (retorno != JFileChooser.APPROVE_OPTION) {
+            break;
+          }
+          File arquivoSelecionado = txfChooser.getSelectedFile();
+          if (!arquivoSelecionado.getName().endsWith(".txt")) {
+            JOptionPane.showMessageDialog(null, "O arquivo deve ser do tipo .txt");
+          } else {
+            txtCaminho.setText(txfChooser.getSelectedFile().getAbsolutePath());
+            if (arquivoSelecionado != null) {
+              LeitorResultado result = new Leitor(arquivoSelecionado).GetTextFromFile();
+              result.Professores.forEach(item -> {
+                mdlProfessor.addRow(new Object[] { item.Nome, item.Titulo });
+              });
+              result.Disciplinas.forEach(item -> {
+              mdlDisciplina
+              .addRow(new Object[] { item.Codigo, item.Nome, item.DiaSemana,
+              item.QuantidadeProfessores });
+              });
+            }
+            break;
+          }
+        }
+      }
+    });
+    btnImportar.setBounds(665, 60, 200, 25);
+    btnImportar.setBackground(Color.BLUE);
+    btnImportar.setBorder(new LineBorder(Color.BLACK));
+    getContentPane().add(btnImportar);
 
     btnInserir = new JButton(new AbstractAction("Inserir no banco") {
       @Override

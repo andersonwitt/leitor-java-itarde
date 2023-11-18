@@ -36,7 +36,7 @@ public class Leitor {
 
     }
 
-    void GetDisciplina(String line) {
+    void GetDisciplina(String line, LeitorResultado resultado) {
         var disciplina = line.substring(1, 7);
         System.out.println("Código Disciplina:");
         System.out.println(disciplina);
@@ -48,6 +48,8 @@ public class Leitor {
         var quantidadeProfessores = line.substring(9, 11);
         System.out.println("Quantidade de Professores:");
         System.out.println(quantidadeProfessores);
+
+        resultado.Disciplinas.add(new Disciplina(disciplina, diaSemana, quantidadeProfessores));
     }
 
     void GetCursoFase(String line) {
@@ -116,7 +118,7 @@ public class Leitor {
                     System.out.println("(************FIM DA IMPORTAÇÃO DO FASE!****************");
                 } else if (Consts.IsTypeOf(ConstEnum.Disciplina, line)) {
                     System.out.println("************INICIO DA IMPORTAÇÃO DO DISCIPLINA!****************");
-                    GetDisciplina(line);
+                    GetDisciplina(line, resultado);
                     System.out.println("(************FIM DA IMPORTAÇÃO DO DISCIPLINA!****************");
                 } else if (Consts.IsTypeOf(ConstEnum.Professor, line)) {
                     System.out.println("************INICIO DA IMPORTAÇÃO DO PROFESSOR!****************");
