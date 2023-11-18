@@ -7,6 +7,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -20,20 +21,22 @@ public class Layout extends JFrame {
   private JTextArea txaInfo1;
   private JTextArea txaInfo2;
   private JTextArea txaInfo3;
+  private JTextArea txaInfo4;
+  private JButton btnLimpar;
   private JButton btnInserir;
 
   public Layout() {
     setTitle("Leitor Java Itarde");
     setResizable(false);
-    setSize(900, 800);
+    setSize(900, 680);
     setLayout(null);
     setLocationRelativeTo(null);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
-    ComponentesLoyout();
+    ComponentesLayout();
     setVisible(true);
   }
 
-  public void ComponentesLoyout() {
+  public void ComponentesLayout() {
     lblChooser = new JLabel("Importe seu arquivo para armazenar no banco:");
     lblChooser.setBounds(20, 20, 300, 25);
     getContentPane().add(lblChooser);
@@ -73,26 +76,39 @@ public class Layout extends JFrame {
     getContentPane().add(btnImportar);
 
     txaInfo1 = new JTextArea();
-    txaInfo1.setBounds(20, 100, 845, 200);
-    txaInfo1.setEditable(false);
-    getContentPane().add(txaInfo1);
+    JScrollPane scrollPane1 = new JScrollPane(txaInfo1);
+    scrollPane1.setBounds(20, 100, 845, 100);
+    getContentPane().add(scrollPane1);
 
     txaInfo2 = new JTextArea();
-    txaInfo2.setBounds(20, 315, 845, 200);
-    txaInfo2.setEditable(false);
-    getContentPane().add(txaInfo2);
+    JScrollPane scrollPane2 = new JScrollPane(txaInfo2);
+    scrollPane2.setBounds(20, 215, 845, 100);
+    getContentPane().add(scrollPane2);
 
     txaInfo3 = new JTextArea();
-    txaInfo3.setBounds(20, 530, 845, 200);
-    txaInfo3.setEditable(false);
-    getContentPane().add(txaInfo3);
+    JScrollPane scrollPane3 = new JScrollPane(txaInfo3);
+    scrollPane3.setBounds(20, 330, 845, 100);
+    getContentPane().add(scrollPane3);
+
+    txaInfo4 = new JTextArea();
+    JScrollPane scrollPane4 = new JScrollPane(txaInfo4);
+    scrollPane4.setBounds(20, 445, 845, 100);
+    getContentPane().add(scrollPane4);
+
+    btnLimpar = new JButton(new AbstractAction("Limpar campos") {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+      }
+    });
+    btnLimpar.setBounds(20, 560, 200, 40);
+    getContentPane().add(btnLimpar);
 
     btnInserir = new JButton(new AbstractAction("Inserir no banco") {
       @Override
       public void actionPerformed(ActionEvent e) {
       }
     });
-    btnInserir.setBounds(240, 740, 200, 25);
+    btnInserir.setBounds(663, 560, 200, 40);
     getContentPane().add(btnInserir);
   }
 

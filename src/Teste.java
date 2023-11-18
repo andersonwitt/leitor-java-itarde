@@ -1,11 +1,6 @@
 import database.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.io.File;
-import java.util.ArrayList;
-import javax.swing.JFileChooser;
-import database.dao.CursosDAO;
-import database.model.Cursos;
 
 public class Teste {
 
