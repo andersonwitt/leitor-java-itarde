@@ -184,7 +184,8 @@ public class Layout extends JFrame {
       }
     });
     btnImportar.setBounds(665, 60, 200, 25);
-    btnImportar.setBackground(Color.BLUE);
+    btnImportar.setForeground(Color.WHITE);
+    btnImportar.setBackground(Color.decode("#4464AD"));
     btnImportar.setBorder(new LineBorder(Color.BLACK));
     getContentPane().add(btnImportar);
 

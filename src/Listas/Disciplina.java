@@ -1,10 +1,15 @@
 package Listas;
+
 import java.util.HashMap;
 
 public class Disciplina {
   public final static HashMap<String, String> items = new HashMap<String, String>() {
     {
       // 1ª Fase
+      put("10850", "Algoritmos e Programação");
+      put("10854", "Fundamentos Matemáticos");
+      put("10851", "Introd. Ciência da Computação");
+
       put("10854", "(Ncc)-Fundamentos Matemáticos");
       put("26974", "(Nci)-Laboratório Formativo I: Nosso Lugar e o Futuro");
       put("27696", "Evolução da Tecnologia");

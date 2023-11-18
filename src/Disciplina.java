@@ -6,11 +6,14 @@ public class Disciplina {
     public String QuantidadeProfessores;
 
     public Disciplina(String codigo, String codigoSemana, String quantidadeProfessores) {
-        this.Codigo = codigo;
-        this.CodigoDiaSemana = codigoSemana;
-        this.QuantidadeProfessores = quantidadeProfessores;
+        Integer codigoInt = Integer.parseInt(codigo);
+        Integer quantidadeInt = Integer.parseInt(quantidadeProfessores);
 
-        this.Nome = Listas.Disciplina.items.get(codigo);
+        this.Codigo = codigoInt.toString();
+        this.CodigoDiaSemana = codigoSemana;
+        this.QuantidadeProfessores = quantidadeInt.toString();
+
+        this.Nome = Listas.Disciplina.items.get(codigoInt.toString());
         this.DiaSemana = Listas.DiaSemana.items.get(codigoSemana);
     }
 }
