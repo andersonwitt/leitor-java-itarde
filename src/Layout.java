@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.io.File;
@@ -8,11 +9,14 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 
 public class Layout extends JFrame {
   private JLabel lblChooser;
@@ -79,29 +83,19 @@ public class Layout extends JFrame {
     btnImportar.setBorder(new LineBorder(Color.BLACK));
     getContentPane().add(btnImportar);
 
-    txaInfo1 = new JTextArea();
-    JScrollPane scrollPane1 = new JScrollPane(txaInfo1);
-    scrollPane1.setBounds(20, 100, 845, 100);
-    scrollPane1.setBorder(new LineBorder(Color.BLACK));
-    getContentPane().add(scrollPane1);
+    // Dados
+    Object[][] data = {
+        { "214124124", "Anderson", "Pessoa" },
+        { "2131231", "Douglas", "Pessoa" },
+    };
+    Object[] columns = { "Codigo", "Name", "Description" };
 
-    txaInfo2 = new JTextArea();
-    JScrollPane scrollPane2 = new JScrollPane(txaInfo2);
-    scrollPane2.setBounds(20, 215, 845, 100);
-    scrollPane2.setBorder(new LineBorder(Color.BLACK));
-    getContentPane().add(scrollPane2);
-
-    txaInfo3 = new JTextArea();
-    JScrollPane scrollPane3 = new JScrollPane(txaInfo3);
-    scrollPane3.setBounds(20, 330, 845, 100);
-    scrollPane3.setBorder(new LineBorder(Color.BLACK));
-    getContentPane().add(scrollPane3);
-
-    txaInfo4 = new JTextArea();
-    JScrollPane scrollPane4 = new JScrollPane(txaInfo4);
-    scrollPane4.setBounds(20, 445, 845, 100);
-    scrollPane4.setBorder(new LineBorder(Color.BLACK));
-    getContentPane().add(scrollPane4);
+    // Tabela
+    DefaultTableModel model = new DefaultTableModel(data, columns);
+    JTable table = new JTable(model);
+    JScrollPane scrollPane = new JScrollPane(table);
+    scrollPane.setBounds(20, 100, 845, 100);
+    getContentPane().add(scrollPane);
 
     btnLimpar = new JButton(new AbstractAction("Limpar campos") {
       @Override
