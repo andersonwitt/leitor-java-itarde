@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.io.File;
 
@@ -10,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Layout extends JFrame {
@@ -73,26 +75,32 @@ public class Layout extends JFrame {
       }
     });
     btnImportar.setBounds(665, 60, 200, 25);
+    btnImportar.setBackground(Color.BLUE);
+    btnImportar.setBorder(new LineBorder(Color.BLACK));
     getContentPane().add(btnImportar);
 
     txaInfo1 = new JTextArea();
     JScrollPane scrollPane1 = new JScrollPane(txaInfo1);
     scrollPane1.setBounds(20, 100, 845, 100);
+    scrollPane1.setBorder(new LineBorder(Color.BLACK));
     getContentPane().add(scrollPane1);
 
     txaInfo2 = new JTextArea();
     JScrollPane scrollPane2 = new JScrollPane(txaInfo2);
     scrollPane2.setBounds(20, 215, 845, 100);
+    scrollPane2.setBorder(new LineBorder(Color.BLACK));
     getContentPane().add(scrollPane2);
 
     txaInfo3 = new JTextArea();
     JScrollPane scrollPane3 = new JScrollPane(txaInfo3);
     scrollPane3.setBounds(20, 330, 845, 100);
+    scrollPane3.setBorder(new LineBorder(Color.BLACK));
     getContentPane().add(scrollPane3);
 
     txaInfo4 = new JTextArea();
     JScrollPane scrollPane4 = new JScrollPane(txaInfo4);
     scrollPane4.setBounds(20, 445, 845, 100);
+    scrollPane4.setBorder(new LineBorder(Color.BLACK));
     getContentPane().add(scrollPane4);
 
     btnLimpar = new JButton(new AbstractAction("Limpar campos") {
@@ -101,6 +109,8 @@ public class Layout extends JFrame {
       }
     });
     btnLimpar.setBounds(20, 560, 200, 40);
+    btnLimpar.setBackground(Color.RED);
+    btnLimpar.setBorder(new LineBorder(Color.BLACK));
     getContentPane().add(btnLimpar);
 
     btnInserir = new JButton(new AbstractAction("Inserir no banco") {
@@ -109,6 +119,8 @@ public class Layout extends JFrame {
       }
     });
     btnInserir.setBounds(663, 560, 200, 40);
+    btnInserir.setBackground(Color.GREEN);
+    btnInserir.setBorder(new LineBorder(Color.BLACK));
     getContentPane().add(btnInserir);
   }
 
