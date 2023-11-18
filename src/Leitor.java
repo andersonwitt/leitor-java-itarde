@@ -77,34 +77,29 @@ public class Leitor {
         System.out.println(line.substring(1, separador));
     }
 
-    void GetProfessor(String linha) {
+    String GetProfessor(String linha) {
         int separador = linha.indexOf("  ");
-        System.out.println(linha.substring(1, separador));
+        return linha.substring(1, separador);
     }
 
-    void GetTituloProfessor(String linha) {
+    String GetTituloProfessor(String linha) {
         int separador = linha.indexOf("  ");
-
-        var caracteres = linha.substring(separador, linha.length()).trim();
-        if (NumberUtils.IsNumber(caracteres)) {
-            System.out.println("Titulo:");
-            System.out.println(caracteres);
-        }
+        return linha.substring(separador, linha.length()).trim();
     }
 
-    void GetTrailer(String linha) {
-        int separador = linha.indexOf("  ");
+    // void GetTrailer(String linha) {
+    // int separador = linha.indexOf(" ");
 
-        var caracteres = linha.substring(separador, linha.length()).trim();
-        if (NumberUtils.IsNumber(caracteres)) {
-            System.out.println("Titulo:");
-            System.out.println(caracteres);
-        }
-    }
+    // var caracteres = linha.substring(separador, linha.length()).trim();
+    // if (NumberUtils.IsNumber(caracteres)) {
+    // System.out.println("Titulo:");
+    // System.out.println(caracteres);
+    // }
+    // }
 
-    String GetTextFromFile() {
+    LeitorResultado GetTextFromFile() {
         BufferedReader in;
-
+        LeitorResultado resultado = new LeitorResultado();
         try {
             in = new BufferedReader(new java.io.FileReader(_arquivo));
             String line = in.readLine();
@@ -125,13 +120,15 @@ public class Leitor {
                     System.out.println("(************FIM DA IMPORTAÇÃO DO DISCIPLINA!****************");
                 } else if (Consts.IsTypeOf(ConstEnum.Professor, line)) {
                     System.out.println("************INICIO DA IMPORTAÇÃO DO PROFESSOR!****************");
-                    GetProfessor(line);
-                    GetTituloProfessor(line);
+                    resultado.Professores.add(new Professor(GetProfessor(line), GetTituloProfessor(line)));
+
                     System.out.println("(************FIM DA IMPORTAÇÃO DO PROFESSOR!****************");
                 } else if (Consts.IsTypeOf(ConstEnum.Trailer, line)) {
-                    System.out.println("************INICIO DA IMPORTAÇÃO DO TRAILER!****************");
-                    GetTrailer(line);
-                    System.out.println("(************FIM DA IMPORTAÇÃO DO TRAILER!****************");
+                    // System.out.println("************INICIO DA IMPORTAÇÃO DO
+                    // TRAILER!****************");
+                    // GetTrailer(line);
+                    // System.out.println("(************FIM DA IMPORTAÇÃO DO
+                    // TRAILER!****************");
                 }
 
                 line = in.readLine();
@@ -141,7 +138,6 @@ public class Leitor {
             System.out.println("deu ruim");
         }
 
-        return "";
+        return resultado;
     }
-
 }
