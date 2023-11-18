@@ -1,3 +1,5 @@
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.io.File;
 
@@ -7,9 +9,14 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 
 public class Layout extends JFrame {
   private JLabel lblChooser;
@@ -20,20 +27,22 @@ public class Layout extends JFrame {
   private JTextArea txaInfo1;
   private JTextArea txaInfo2;
   private JTextArea txaInfo3;
+  private JTextArea txaInfo4;
+  private JButton btnLimpar;
   private JButton btnInserir;
 
   public Layout() {
     setTitle("Leitor Java Itarde");
     setResizable(false);
-    setSize(900, 800);
+    setSize(900, 680);
     setLayout(null);
     setLocationRelativeTo(null);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
-    ComponentesLoyout();
+    ComponentesLayout();
     setVisible(true);
   }
 
-  public void ComponentesLoyout() {
+  public void ComponentesLayout() {
     lblChooser = new JLabel("Importe seu arquivo para armazenar no banco:");
     lblChooser.setBounds(20, 20, 300, 25);
     getContentPane().add(lblChooser);
@@ -70,29 +79,42 @@ public class Layout extends JFrame {
       }
     });
     btnImportar.setBounds(665, 60, 200, 25);
+    btnImportar.setBackground(Color.BLUE);
+    btnImportar.setBorder(new LineBorder(Color.BLACK));
     getContentPane().add(btnImportar);
 
-    txaInfo1 = new JTextArea();
-    txaInfo1.setBounds(20, 100, 845, 200);
-    txaInfo1.setEditable(false);
-    getContentPane().add(txaInfo1);
+    // Dados
+    Object[][] data = {
+        { "214124124", "Anderson", "Pessoa" },
+        { "2131231", "Douglas", "Pessoa" },
+    };
+    Object[] columns = { "Codigo", "Name", "Description" };
 
-    txaInfo2 = new JTextArea();
-    txaInfo2.setBounds(20, 315, 845, 200);
-    txaInfo2.setEditable(false);
-    getContentPane().add(txaInfo2);
+    // Tabela
+    DefaultTableModel model = new DefaultTableModel(data, columns);
+    JTable table = new JTable(model);
+    JScrollPane scrollPane = new JScrollPane(table);
+    scrollPane.setBounds(20, 100, 845, 100);
+    getContentPane().add(scrollPane);
 
-    txaInfo3 = new JTextArea();
-    txaInfo3.setBounds(20, 530, 845, 200);
-    txaInfo3.setEditable(false);
-    getContentPane().add(txaInfo3);
+    btnLimpar = new JButton(new AbstractAction("Limpar campos") {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+      }
+    });
+    btnLimpar.setBounds(20, 560, 200, 40);
+    btnLimpar.setBackground(Color.RED);
+    btnLimpar.setBorder(new LineBorder(Color.BLACK));
+    getContentPane().add(btnLimpar);
 
     btnInserir = new JButton(new AbstractAction("Inserir no banco") {
       @Override
       public void actionPerformed(ActionEvent e) {
       }
     });
-    btnInserir.setBounds(240, 740, 200, 25);
+    btnInserir.setBounds(663, 560, 200, 40);
+    btnInserir.setBackground(Color.GREEN);
+    btnInserir.setBorder(new LineBorder(Color.BLACK));
     getContentPane().add(btnInserir);
   }
 
