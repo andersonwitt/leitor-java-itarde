@@ -1,4 +1,3 @@
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.io.File;
@@ -9,10 +8,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -24,10 +21,22 @@ public class Layout extends JFrame {
   private JButton btnImportar;
   private JTextField txtCaminho;
   private FileNameExtensionFilter fneFilter;
-  private JTextArea txaInfo1;
-  private JTextArea txaInfo2;
-  private JTextArea txaInfo3;
-  private JTextArea txaInfo4;
+  private JLabel lblCurso;
+  private DefaultTableModel mdlCurso;
+  private JTable tblCurso;
+  private JScrollPane scrollPaneCurso;
+  private JLabel lblFase;
+  private DefaultTableModel mdlFase;
+  private JTable tblFase;
+  private JScrollPane scrollPaneFase;
+  private JLabel lblDisciplina;
+  private DefaultTableModel mdlDisciplina;
+  private JTable tblDisciplina;
+  private JScrollPane scrollPaneDisciplina;
+  private JLabel lblProfessor;
+  private DefaultTableModel mdlProfessor;
+  private JTable tblProfessor;
+  private JScrollPane scrollPaneProfessor;
   private JButton btnLimpar;
   private JButton btnInserir;
 
@@ -90,12 +99,45 @@ public class Layout extends JFrame {
     };
     Object[] columns = { "Codigo", "Name", "Description" };
 
-    // Tabela
-    DefaultTableModel model = new DefaultTableModel(data, columns);
-    JTable table = new JTable(model);
-    JScrollPane scrollPane = new JScrollPane(table);
-    scrollPane.setBounds(20, 100, 845, 100);
-    getContentPane().add(scrollPane);
+    lblCurso = new JLabel("Cursos:");
+    lblCurso.setBounds(20, 20, 300, 25);
+    getContentPane().add(lblCurso);
+
+    mdlCurso = new DefaultTableModel(data, columns);
+    tblCurso = new JTable(mdlCurso);
+    scrollPaneCurso = new JScrollPane(tblCurso);
+    scrollPaneCurso.setBounds(20, 100, 845, 100);
+    getContentPane().add(scrollPaneCurso);
+
+    lblFase = new JLabel("Fases:");
+    lblFase.setBounds(20, 20, 300, 25);
+    getContentPane().add(lblFase);
+
+    mdlFase = new DefaultTableModel(data, columns);
+    tblFase = new JTable(mdlFase);
+    scrollPaneFase = new JScrollPane(tblFase);
+    scrollPaneFase.setBounds(20, 215, 845, 100);
+    getContentPane().add(scrollPaneFase);
+
+    lblDisciplina = new JLabel("Disciplinas:");
+    lblDisciplina.setBounds(20, 20, 300, 25);
+    getContentPane().add(lblDisciplina);
+
+    mdlDisciplina = new DefaultTableModel(data, columns);
+    tblDisciplina = new JTable(mdlDisciplina);
+    scrollPaneDisciplina = new JScrollPane(tblDisciplina);
+    scrollPaneDisciplina.setBounds(20, 330, 845, 100);
+    getContentPane().add(scrollPaneDisciplina);
+
+    lblProfessor = new JLabel("Professores:");
+    lblProfessor.setBounds(20, 20, 300, 25);
+    getContentPane().add(lblProfessor);
+
+    mdlProfessor = new DefaultTableModel(data, columns);
+    tblProfessor = new JTable(mdlProfessor);
+    scrollPaneProfessor = new JScrollPane(tblProfessor);
+    scrollPaneProfessor.setBounds(20, 445, 845, 100);
+    getContentPane().add(scrollPaneProfessor);
 
     btnLimpar = new JButton(new AbstractAction("Limpar campos") {
       @Override
