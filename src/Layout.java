@@ -20,6 +20,7 @@ public class Layout extends JFrame {
   private JTextArea txaInfo1;
   private JTextArea txaInfo2;
   private JTextArea txaInfo3;
+  private JButton btnInserir;
 
   public Layout() {
     setTitle("Leitor Java Itarde");
@@ -85,6 +86,14 @@ public class Layout extends JFrame {
     txaInfo3.setBounds(20, 530, 845, 200);
     txaInfo3.setEditable(false);
     getContentPane().add(txaInfo3);
+
+    btnInserir = new JButton(new AbstractAction("Inserir no banco") {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+      }
+    });
+    btnInserir.setBounds(240, 740, 200, 25);
+    getContentPane().add(btnInserir);
   }
 
 }
