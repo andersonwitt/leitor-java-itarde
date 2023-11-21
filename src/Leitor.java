@@ -21,19 +21,20 @@ public class Leitor {
         }
     }
 
-    void GetFase(String line) {
-        var fase = line.substring(1, 8);
+    void GetFase(String line, LeitorResultado resultado) {
+        String fase = line.substring(1, 8);
         System.out.println("Nome Fase:");
         System.out.println(fase);
 
-        var quantidadeDisciplina = line.substring(8, 10);
+        String quantidadeDisciplina = line.substring(8, 10);
         System.out.println("Quantidade Disciplina:");
         System.out.println(quantidadeDisciplina);
 
-        var quantidadeProfessores = line.substring(10, 12);
+        String quantidadeProfessores = line.substring(10, 12);
         System.out.println("Quantidade Professores:");
         System.out.println(quantidadeProfessores);
 
+        resultado.Fases.add(new Fase(fase, quantidadeDisciplina, quantidadeProfessores));
     }
 
     void GetDisciplina(String line, LeitorResultado resultado) {
@@ -74,9 +75,31 @@ public class Leitor {
         System.out.println(caracteres.substring(14, 17));
     }
 
-    void GetCurso(String line) {
+    void GetCurso(String line, LeitorResultado resultado) {
         int separador = line.indexOf("  ");
-        System.out.println(line.substring(1, separador));
+        String nome = line.substring(1, separador);
+
+        int separadorFase = line.toLowerCase().indexOf("fase");
+        var caracteres = line.substring(separadorFase, line.length());
+
+        System.out.println("Inicio da Fase: ");
+        System.out.println(caracteres.substring(0, 7));
+
+        separadorFase = caracteres.substring(7, caracteres.length()).toLowerCase().indexOf("fase");
+        caracteres = caracteres.substring(7, caracteres.length());
+
+        if (separadorFase != -1) {
+            System.out.println("Final da Fase: ");
+            System.out.println(caracteres.substring(0, 7));
+        }
+
+        System.out.println("Sequencial: ");
+        System.out.println(caracteres.substring(7, 14));
+
+        System.out.println("Versão do layout: ");
+        String sequencial = caracteres.substring(14, 17);
+
+        resultado.Cursos.add(new Curso(nome, sequencial));
     }
 
     String GetProfessor(String linha) {
@@ -108,13 +131,13 @@ public class Leitor {
             while (line != null) {
                 if (Consts.IsTypeOf(ConstEnum.Curso, line)) {
                     System.out.println("************INICIO DA IMPORTAÇÃO DO CURSO!****************");
-                    GetCurso(line);
+                    GetCurso(line, resultado);
                     GetCursoDate(line);
                     GetCursoFase(line);
                     System.out.println("(************FIM DA IMPORTAÇÃO DO CURSO!****************");
                 } else if (Consts.IsTypeOf(ConstEnum.Fase, line)) {
                     System.out.println("************INICIO DA IMPORTAÇÃO DO FASE!****************");
-                    GetFase(line);
+                    GetFase(line, resultado);
                     System.out.println("(************FIM DA IMPORTAÇÃO DO FASE!****************");
                 } else if (Consts.IsTypeOf(ConstEnum.Disciplina, line)) {
                     System.out.println("************INICIO DA IMPORTAÇÃO DO DISCIPLINA!****************");

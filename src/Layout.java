@@ -89,7 +89,8 @@ public class Layout extends JFrame {
 
     // Dados
     Object[][] data = {};
-    Object[] columns = { "Name", "Description" };
+    Object[] cursosColumns = { "Nome", "Sequencial" };
+    Object[] fasesColumns = { "Nome", "Quantidade de Disciplinas", "Quantidade de Professores" };
     Object[] professoresColumns = { "Nome", "Título" };
     Object[] disciplinaColumns = { "Código", "Nome", "Dia da Semana", "Quantidade de Professores" };
 
@@ -97,7 +98,7 @@ public class Layout extends JFrame {
     lblCurso.setBounds(20, 100, 300, 25);
     getContentPane().add(lblCurso);
 
-    mdlCurso = new DefaultTableModel(data, columns);
+    mdlCurso = new DefaultTableModel(data, cursosColumns);
     tblCurso = new JTable(mdlCurso);
     headerCurso = tblCurso.getTableHeader();
     colorHeaderTable(headerCurso);
@@ -109,7 +110,7 @@ public class Layout extends JFrame {
     lblFase.setBounds(20, 230, 300, 25);
     getContentPane().add(lblFase);
 
-    mdlFase = new DefaultTableModel(data, columns);
+    mdlFase = new DefaultTableModel(data, fasesColumns);
     tblFase = new JTable(mdlFase);
     headerFase = tblFase.getTableHeader();
     colorHeaderTable(headerFase);
@@ -169,13 +170,23 @@ public class Layout extends JFrame {
             txtCaminho.setText(txfChooser.getSelectedFile().getAbsolutePath());
             if (arquivoSelecionado != null) {
               LeitorResultado result = new Leitor(arquivoSelecionado).GetTextFromFile();
+
+              result.Cursos.forEach(item -> {
+                mdlCurso.addRow(new Object[] { item.Nome, item.Sequencial });
+              });
+
               result.Professores.forEach(item -> {
                 mdlProfessor.addRow(new Object[] { item.Nome, item.Titulo });
               });
+
+              result.Fases.forEach(item -> {
+                mdlFase
+                    .addRow(new Object[] { item.Nome, item.QuantidadeDisciplinas, item.QuantidadeProfessores });
+              });
+
               result.Disciplinas.forEach(item -> {
-              mdlDisciplina
-              .addRow(new Object[] { item.Codigo, item.Nome, item.DiaSemana,
-              item.QuantidadeProfessores });
+                mdlDisciplina
+                    .addRow(new Object[] { item.Codigo, item.Nome, item.DiaSemana, item.QuantidadeProfessores });
               });
             }
             break;
