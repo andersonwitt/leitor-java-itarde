@@ -2,6 +2,9 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -17,6 +20,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+
+import database.ConnectionFactory;
+import database.dao.CursosDAO;
+import database.model.Curso;
 
 public class Layout extends JFrame {
   private JLabel lblChooser;
@@ -46,6 +53,8 @@ public class Layout extends JFrame {
   private JTableHeader headerFase;
   private JTableHeader headerDisciplina;
   private JTableHeader headerProfessor;
+
+  private LeitorResultado result = null;
 
   public Layout() {
     setTitle("Leitor Java Itarde");
@@ -89,7 +98,7 @@ public class Layout extends JFrame {
 
     // Dados
     Object[][] data = {};
-    Object[] cursosColumns = { "Nome", "Sequencial" };
+    Object[] cursosColumns = { "Nome", "Período Inicial", "Período Final" };
     Object[] fasesColumns = { "Nome", "Quantidade de Disciplinas", "Quantidade de Professores" };
     Object[] professoresColumns = { "Nome", "Título" };
     Object[] disciplinaColumns = { "Código", "Nome", "Dia da Semana", "Quantidade de Professores" };
@@ -169,10 +178,10 @@ public class Layout extends JFrame {
           } else {
             txtCaminho.setText(txfChooser.getSelectedFile().getAbsolutePath());
             if (arquivoSelecionado != null) {
-              LeitorResultado result = new Leitor(arquivoSelecionado).GetTextFromFile();
+              result = new Leitor(arquivoSelecionado).GetTextFromFile();
 
               result.Cursos.forEach(item -> {
-                mdlCurso.addRow(new Object[] { item.Nome, item.Sequencial });
+                mdlCurso.addRow(new Object[] { item.Nome, item.PeriodoInicial, item.PeriodoFinal });
               });
 
               result.Professores.forEach(item -> {
@@ -203,6 +212,22 @@ public class Layout extends JFrame {
     btnInserir = new JButton(new AbstractAction("Inserir no banco") {
       @Override
       public void actionPerformed(ActionEvent e) {
+        try {
+          Connection conexao = ConnectionFactory.getConnection("127.0.0.1", 3306, "SistemaEscolar", "root", "unesc");
+          if (conexao != null) {
+            System.out.println("CONECTOU !!!!");
+
+            CursosDAO dao = new CursosDAO(conexao);
+            for (Curso c : result.Cursos) {
+              var oi = dao.insert(c);
+            }
+
+          } else {
+            System.out.println("NÃO CONECTOU !!!!");
+          }
+        } catch (SQLException ex) {
+          ex.printStackTrace();
+        }
       }
     });
     btnInserir.setBounds(663, 630, 200, 40);

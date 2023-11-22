@@ -9,17 +9,17 @@ import java.util.ArrayList;
 
 import database.model.Curso;
 
-public class CursosDAO {
+public class ProfessoresDAO {
 
   private String selectAll = "select * from tb_curso";
   private String selectWhere = "select * from tb_curso where id = ?";
-  private String insert = "insert into tb_cursos(curso, periodo_inicial, periodo_final) values (?, ?, ?)";
+  private String insert = "insert into tb_curso(nomeCurso, qtdDisciplinas, qtdProfessores) values (?, ?, ?)";
 
   private PreparedStatement pstSelectAll;
   private PreparedStatement pstSelectWhere;
   private PreparedStatement pstInsert;
 
-  public CursosDAO(Connection conexao) throws SQLException {
+  public ProfessoresDAO(Connection conexao) throws SQLException {
     pstSelectAll = conexao.prepareStatement(selectAll);
     pstSelectWhere = conexao.prepareStatement(selectWhere);
     pstInsert = conexao.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
@@ -33,9 +33,9 @@ public class CursosDAO {
     while (resultado.next()) {
 
       int Id = resultado.getInt("id");
-      String Nome = resultado.getString("curso");
-      String PeriodoInicial = resultado.getString("periodo_inicial");
-      String PeriodoFinal = resultado.getString("periodo_final");
+      String Nome = resultado.getString("nomeCurso");
+      String PeriodoInicial = resultado.getString("qtdDisciplinas");
+      String PeriodoFinal = resultado.getString("qtdProfessores");
 
       Curso c = new Curso(Nome, PeriodoInicial, PeriodoFinal);
       c.setId(Id);

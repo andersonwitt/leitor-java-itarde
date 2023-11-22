@@ -1,3 +1,4 @@
+package database.model;
 public class Disciplina {
     public String Codigo;
     public String CodigoDiaSemana;

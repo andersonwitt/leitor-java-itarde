@@ -1,3 +1,4 @@
+package database.model;
 import Listas.TituloDocente;
 
 public class Professor {

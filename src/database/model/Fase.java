@@ -1,3 +1,4 @@
+package database.model;
 public class Fase {
     public String Nome;
     public String QuantidadeDisciplinas;
