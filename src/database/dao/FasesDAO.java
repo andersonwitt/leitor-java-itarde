@@ -32,12 +32,13 @@ public class FasesDAO {
     ResultSet resultado = pstSelectAll.executeQuery();
     while (resultado.next()) {
 
+      Curso c = new Curso();
+
       int Id = resultado.getInt("id");
       String Nome = resultado.getString("nomeCurso");
       String PeriodoInicial = resultado.getString("qtdDisciplinas");
       String PeriodoFinal = resultado.getString("qtdProfessores");
 
-      Curso c = new Curso(Nome, PeriodoInicial, PeriodoFinal);
 
       listaCurso.add(c);
     }
@@ -47,9 +48,9 @@ public class FasesDAO {
 
   public int insert(Curso curso) throws SQLException {
     pstInsert.clearParameters();
-    pstInsert.setString(1, curso.Nome);
-    pstInsert.setString(2, curso.PeriodoInicial);
-    pstInsert.setString(3, curso.PeriodoFinal);
+    pstInsert.setString(1, curso.getNome());
+    pstInsert.setInt(2, curso.getPeriodoInicial());
+    pstInsert.setInt(3, curso.getPeriodoFinal());
     pstInsert.execute();
 
     ResultSet r = pstInsert.getGeneratedKeys();

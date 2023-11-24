@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 
 import database.model.Curso;
 
@@ -13,7 +14,7 @@ public class CursosDAO {
 
   private String selectAll = "select * from tb_curso";
   private String selectWhere = "select * from tb_curso where id = ?";
-  private String insert = "insert into tb_cursos(curso, periodo_inicial, periodo_final) values (?, ?, ?)";
+  private String insert = "insert into tb_cursos(nome, data_processamento, periodo_inicial, periodo_final, sequencial, versao_layout) values (?, ?, ?, ?, ?, ?)";
 
   private PreparedStatement pstSelectAll;
   private PreparedStatement pstSelectWhere;
@@ -32,13 +33,16 @@ public class CursosDAO {
     ResultSet resultado = pstSelectAll.executeQuery();
     while (resultado.next()) {
 
-      int Id = resultado.getInt("id");
-      String Nome = resultado.getString("curso");
-      String PeriodoInicial = resultado.getString("periodo_inicial");
-      String PeriodoFinal = resultado.getString("periodo_final");
+      Curso c = new Curso();
 
-      Curso c = new Curso(Nome, PeriodoInicial, PeriodoFinal);
-      c.setId(Id);
+      c.setId(resultado.getInt("id"));
+      c.setNome(resultado.getString("nome"));
+      c.setPeriodoInicial(resultado.getInt("periodo_inicial"));
+      c.setPeriodoFinal(resultado.getInt("periodo_final"));
+      c.setDataProcessamento(resultado.getDate("data_processamento"));
+      c.setSequencia(resultado.getInt("sequencial"));
+      c.setVersaoLayout(resultado.getString("versao_layout"));
+
       listaCurso.add(c);
     }
 
@@ -47,9 +51,15 @@ public class CursosDAO {
 
   public int insert(Curso curso) throws SQLException {
     pstInsert.clearParameters();
-    pstInsert.setString(1, curso.Nome);
-    pstInsert.setString(2, curso.PeriodoInicial);
-    pstInsert.setString(3, curso.PeriodoFinal);
+
+    pstInsert.setInt(1, curso.getId());
+    pstInsert.setString(2, curso.getNome());
+    pstInsert.setInt(3, curso.getPeriodoInicial());
+    pstInsert.setInt(4, curso.getPeriodoFinal());
+    pstInsert.setString(5, curso.getDataProcessamento().toString());
+    pstInsert.setInt(6, curso.getSequencia());
+    pstInsert.setString(7, curso.getVersaoLayout());
+
     pstInsert.execute();
 
     ResultSet r = pstInsert.getGeneratedKeys();

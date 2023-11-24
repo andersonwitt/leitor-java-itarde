@@ -181,21 +181,21 @@ public class Layout extends JFrame {
               result = new Leitor(arquivoSelecionado).GetTextFromFile();
 
               result.Cursos.forEach(item -> {
-                mdlCurso.addRow(new Object[] { item.Nome, item.PeriodoInicial, item.PeriodoFinal });
+                mdlCurso.addRow(new Object[] { item.getNome(), item.getPeriodoInicial(), item.getPeriodoFinal() });
               });
 
               result.Professores.forEach(item -> {
-                mdlProfessor.addRow(new Object[] { item.Nome, item.Titulo });
+                mdlProfessor.addRow(new Object[] { item.getNome(), item.getTitulo() });
               });
 
               result.Fases.forEach(item -> {
                 mdlFase
-                    .addRow(new Object[] { item.Nome, item.QuantidadeDisciplinas, item.QuantidadeProfessores });
+                    .addRow(new Object[] { item.getNome(), item.getQuantidadeDisciplinas(), item.getQuantidadeProfessores() });
               });
 
               result.Disciplinas.forEach(item -> {
                 mdlDisciplina
-                    .addRow(new Object[] { item.Codigo, item.Nome, item.DiaSemana, item.QuantidadeProfessores });
+                    .addRow(new Object[] { item.getCodigo(), item.getNome(), item.getDiaSemana(), item.getQuantidadeProfessores() });
               });
             }
             break;
@@ -213,7 +213,7 @@ public class Layout extends JFrame {
       @Override
       public void actionPerformed(ActionEvent e) {
         try {
-          Connection conexao = ConnectionFactory.getConnection("127.0.0.1", 3306, "SistemaEscolar", "root", "unesc");
+          Connection conexao = ConnectionFactory.getConnection("127.0.0.1", 3306, "sistema", "root", "@Root");
           if (conexao != null) {
             System.out.println("CONECTOU !!!!");
 

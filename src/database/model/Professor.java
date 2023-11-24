@@ -2,14 +2,36 @@ package database.model;
 import Listas.TituloDocente;
 
 public class Professor {
-    public String Nome;
-    public String TituloID;
-    public String Titulo;
+    private String Nome;
+    private int TituloID;
+    private String Titulo;
 
-    public Professor(String nome, String tituloID) {
-        this.Nome = nome;
-        this.TituloID = tituloID;
+    public String getNome() {
+        return Nome;
+    }
 
-        this.Titulo = TituloDocente.items.get(tituloID);
+    public void setNome(String nome) {
+        Nome = nome;
+    }
+
+    public int getTituloID() {
+        return TituloID;
+    }
+
+    public void setTituloID(int tituloID) {
+        TituloID = tituloID;
+    }
+
+    public String getTitulo() {
+        return Titulo;
+    }
+
+    public void setTitulo(int tituloID) {
+        
+        Titulo = TituloDocente.items.get(Integer.toString(tituloID));
+    }
+
+    public Professor(int tituloID) {
+        this.Titulo = TituloDocente.items.get(Integer.toString(tituloID));
     }
 }

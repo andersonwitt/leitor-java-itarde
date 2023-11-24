@@ -1,20 +1,49 @@
 package database.model;
+
 public class Disciplina {
-    public String Codigo;
-    public String CodigoDiaSemana;
-    public String Nome;
-    public String DiaSemana;
-    public String QuantidadeProfessores;
+    private int Codigo;
+    private int CodigoDiaSemana;
+    private String Nome;
+    private String DiaSemana;
+    private int QuantidadeProfessores;
 
-    public Disciplina(String codigo, String codigoSemana, String quantidadeProfessores) {
-        Integer codigoInt = Integer.parseInt(codigo);
-        Integer quantidadeInt = Integer.parseInt(quantidadeProfessores);
+    public int getCodigo() {
+        return Codigo;
+    }
 
-        this.Codigo = codigoInt.toString();
-        this.CodigoDiaSemana = codigoSemana;
-        this.QuantidadeProfessores = quantidadeInt.toString();
+    public void setCodigo(int codigo) {
+        Codigo = codigo;
+    }
 
-        this.Nome = Listas.Disciplina.items.get(codigoInt.toString());
-        this.DiaSemana = Listas.DiaSemana.items.get(codigoSemana);
+    public int getCodigoDiaSemana() {
+        return CodigoDiaSemana;
+    }
+
+    public void setCodigoDiaSemana(int codigoDiaSemana) {
+        CodigoDiaSemana = codigoDiaSemana;
+    }
+
+    public String getNome() {
+        return Nome;
+    }
+
+    public void setNome(int codigoDisciplina) {
+        Nome = Listas.Disciplina.items.get(Integer.toString(codigoDisciplina));
+    }
+
+    public String getDiaSemana() {
+        return DiaSemana;
+    }
+
+    public void setDiaSemana(int codigoDiaSemana) {
+        DiaSemana = Listas.DiaSemana.items.get(Integer.toString(codigoDiaSemana));
+    }
+
+    public int getQuantidadeProfessores() {
+        return QuantidadeProfessores;
+    }
+
+    public void setQuantidadeProfessores(int quantidadeProfessores) {
+        QuantidadeProfessores = quantidadeProfessores;
     }
 }

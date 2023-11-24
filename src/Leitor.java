@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.File;
+import java.sql.Date;
 
 import database.model.Curso;
 import database.model.Disciplina;
@@ -16,16 +17,6 @@ public class Leitor {
     _arquivo = arquivo;
   }
 
-  void GetCursoDate(String line) {
-    int separador = line.indexOf("  ");
-
-    var caracteres = line.substring(separador, line.length()).trim().substring(0, 8);
-    if (DateUtils.IsDate(caracteres)) {
-      System.out.println("Data: ");
-      System.out.println(caracteres);
-    }
-  }
-
   void GetFase(String line, LeitorResultado resultado) {
     String fase = line.substring(1, 8);
     System.out.println("Nome Fase:");
@@ -39,7 +30,8 @@ public class Leitor {
     System.out.println("Quantidade Professores:");
     System.out.println(quantidadeProfessores);
 
-    resultado.Fases.add(new Fase(fase, quantidadeDisciplina, quantidadeProfessores));
+    // resultado.Fases.add(new Fase(fase, quantidadeDisciplina,
+    // quantidadeProfessores));
   }
 
   void GetDisciplina(String line, LeitorResultado resultado) {
@@ -55,32 +47,13 @@ public class Leitor {
     System.out.println("Quantidade de Professores:");
     System.out.println(quantidadeProfessores);
 
-    resultado.Disciplinas.add(new Disciplina(disciplina, diaSemana, quantidadeProfessores));
-  }
-
-  void GetCursoFase(String line) {
-    int separador = line.toLowerCase().indexOf("fase");
-    var caracteres = line.substring(separador, line.length());
-
-    System.out.println("Inicio da Fase: ");
-    System.out.println(caracteres.substring(0, 7));
-
-    separador = caracteres.substring(7, caracteres.length()).toLowerCase().indexOf("fase");
-    caracteres = caracteres.substring(7, caracteres.length());
-
-    if (separador != -1) {
-      System.out.println("Final da Fase: ");
-      System.out.println(caracteres.substring(0, 7));
-    }
-
-    System.out.println("Sequencial: ");
-    System.out.println(caracteres.substring(7, 14));
-
-    System.out.println("Versão do layout: ");
-    System.out.println(caracteres.substring(14, 17));
+    // resultado.Disciplinas.add(new Disciplina(disciplina, diaSemana,
+    // quantidadeProfessores));
   }
 
   void GetCurso(String line, LeitorResultado resultado) {
+    Curso curso = new Curso();
+
     int separador = line.indexOf("  ");
     String nome = line.substring(1, separador);
 
@@ -102,32 +75,33 @@ public class Leitor {
     }
     System.out.println("Sequencial: ");
     System.out.println(caracteres.substring(7, 14));
+    curso.setSequencia(Integer.parseInt(caracteres.substring(7, 14)));
 
     System.out.println("Versão do layout: ");
     String sequencial = caracteres.substring(14, 17);
+    curso.setVersaoLayout(sequencial);
 
-    resultado.Cursos.add(new Curso(nome, faseInicial, faseFinal));
+    curso.setNome(nome);
+
+    int separadorDate = line.indexOf("  ");
+
+    var caracteresDate = line.substring(separadorDate, line.length()).trim().substring(0, 8);
+    if (DateUtils.IsDate(caracteresDate)) {
+      // curso.setDataProcessamento(Date.valueOf(caracteresDate));
+    }
+    // curso.setDataProcessamento(nome);
+
+    resultado.Cursos.add(curso);
   }
 
   String GetProfessor(String linha) {
     int separador = linha.indexOf("  ");
-    return linha.substring(1, separador);
+    int separadorTitulo = linha.indexOf("  ");
+    String nome = linha.substring(1, separador);
+    String titulo = linha.substring(separadorTitulo, linha.length()).trim();
+
+    return "";
   }
-
-  String GetTituloProfessor(String linha) {
-    int separador = linha.indexOf("  ");
-    return linha.substring(separador, linha.length()).trim();
-  }
-
-  // void GetTrailer(String linha) {
-  // int separador = linha.indexOf(" ");
-
-  // var caracteres = linha.substring(separador, linha.length()).trim();
-  // if (NumberUtils.IsNumber(caracteres)) {
-  // System.out.println("Titulo:");
-  // System.out.println(caracteres);
-  // }
-  // }
 
   LeitorResultado GetTextFromFile() {
     BufferedReader in;
@@ -137,37 +111,23 @@ public class Leitor {
       String line = in.readLine();
       while (line != null) {
         if (Consts.IsTypeOf(ConstEnum.Curso, line)) {
-          System.out.println("************INICIO DA IMPORTAÇÃO DO CURSO!****************");
           GetCurso(line, resultado);
-          GetCursoDate(line);
-          GetCursoFase(line);
-          System.out.println("(************FIM DA IMPORTAÇÃO DO CURSO!****************");
+          // GetCursoDate(line);
+          // GetCursoFase(line);
         } else if (Consts.IsTypeOf(ConstEnum.Fase, line)) {
-          System.out.println("************INICIO DA IMPORTAÇÃO DO FASE!****************");
           GetFase(line, resultado);
-          System.out.println("(************FIM DA IMPORTAÇÃO DO FASE!****************");
         } else if (Consts.IsTypeOf(ConstEnum.Disciplina, line)) {
-          System.out.println("************INICIO DA IMPORTAÇÃO DO DISCIPLINA!****************");
           GetDisciplina(line, resultado);
-          System.out.println("(************FIM DA IMPORTAÇÃO DO DISCIPLINA!****************");
         } else if (Consts.IsTypeOf(ConstEnum.Professor, line)) {
-          System.out.println("************INICIO DA IMPORTAÇÃO DO PROFESSOR!****************");
-          resultado.Professores.add(new Professor(GetProfessor(line), GetTituloProfessor(line)));
-
-          System.out.println("(************FIM DA IMPORTAÇÃO DO PROFESSOR!****************");
-        } else if (Consts.IsTypeOf(ConstEnum.Trailer, line)) {
-          // System.out.println("************INICIO DA IMPORTAÇÃO DO
-          // TRAILER!****************");
-          // GetTrailer(line);
-          // System.out.println("(************FIM DA IMPORTAÇÃO DO
-          // TRAILER!****************");
+          // resultado.Professores.add(new Professor(GetProfessor(line),
+          // GetTituloProfessor(line)));
         }
 
         line = in.readLine();
       }
 
     } catch (Exception e) {
-      System.out.println("deu ruim");
+      System.out.println(e.toString());
     }
 
     return resultado;
