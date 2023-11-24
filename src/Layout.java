@@ -98,10 +98,14 @@ public class Layout extends JFrame {
 
     // Dados
     Object[][] data = {};
-    Object[] cursosColumns = { "Nome", "Período Inicial", "Período Final" };
-    Object[] fasesColumns = { "Nome", "Quantidade de Disciplinas", "Quantidade de Professores" };
-    Object[] professoresColumns = { "Nome", "Título" };
+    Object[] professoresColumns = { "Codigo", "Nome", "Título" };
+
     Object[] disciplinaColumns = { "Código", "Nome", "Dia da Semana", "Quantidade de Professores" };
+
+    Object[] fasesColumns = { "Código", "Nome", "Quantidade de Disciplinas", "Quantidade de Professores" };
+
+    Object[] cursosColumns = { "Codigo", "Nome", "Data de processamento", "Período Inicial", "Período Final",
+        "Sequência", "Versão do Layout" };
 
     lblCurso = new JLabel("Cursos:");
     lblCurso.setBounds(20, 100, 300, 25);
@@ -181,21 +185,25 @@ public class Layout extends JFrame {
               result = new Leitor(arquivoSelecionado).GetTextFromFile();
 
               result.Cursos.forEach(item -> {
-                mdlCurso.addRow(new Object[] { item.getNome(), item.getPeriodoInicial(), item.getPeriodoFinal() });
+                mdlCurso.addRow(
+                    new Object[] { item.getId(), item.getNome(), item.getDataProcessamento(), item.getPeriodoInicial(),
+                        item.getPeriodoFinal(), item.getSequencia(), item.getVersaoLayout() });
               });
 
               result.Professores.forEach(item -> {
-                mdlProfessor.addRow(new Object[] { item.getNome(), item.getTitulo() });
+                mdlProfessor.addRow(new Object[] { item.getId(), item.getNome(), item.getTitulo() });
               });
 
               result.Fases.forEach(item -> {
                 mdlFase
-                    .addRow(new Object[] { item.getNome(), item.getQuantidadeDisciplinas(), item.getQuantidadeProfessores() });
+                    .addRow(new Object[] { item.getId(), item.getNome(), item.getQuantidadeDisciplinas(),
+                        item.getQuantidadeProfessores() });
               });
 
               result.Disciplinas.forEach(item -> {
                 mdlDisciplina
-                    .addRow(new Object[] { item.getCodigo(), item.getNome(), item.getDiaSemana(), item.getQuantidadeProfessores() });
+                    .addRow(new Object[] { item.getId(), item.getNome(), item.getDiaSemana(),
+                        item.getQuantidadeProfessores() });
               });
             }
             break;

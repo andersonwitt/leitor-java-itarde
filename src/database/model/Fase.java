@@ -1,31 +1,40 @@
 package database.model;
 
 public class Fase {
-    private String Nome;
-    private int QuantidadeDisciplinas;
-    private int QuantidadeProfessores;
+  private int Id;
+  private String Nome;
+  private int QuantidadeDisciplinas;
+  private int QuantidadeProfessores;
 
-    public String getNome() {
-        return Nome;
-    }
+  public int getId() {
+    return Id;
+  }
 
-    public void setNome(String nome) {
-        Nome = nome;
-    }
+  public void setId(int id) {
+    Id = id;
+  }
 
-    public int getQuantidadeDisciplinas() {
-        return QuantidadeDisciplinas;
-    }
+  public String getNome() {
+    return Nome;
+  }
 
-    public void setQuantidadeDisciplinas(int quantidadeDisciplinas) {
-        QuantidadeDisciplinas = quantidadeDisciplinas;
-    }
+  public void setNome(String nome) {
+    Nome = nome;
+  }
 
-    public int getQuantidadeProfessores() {
-        return QuantidadeProfessores;
-    }
+  public int getQuantidadeDisciplinas() {
+    return QuantidadeDisciplinas;
+  }
 
-    public void setQuantidadeProfessores(int quantidadeProfessores) {
-        QuantidadeProfessores = quantidadeProfessores;
-    }
+  public void setQuantidadeDisciplinas(int quantidadeDisciplinas) {
+    QuantidadeDisciplinas = quantidadeDisciplinas;
+  }
+
+  public int getQuantidadeProfessores() {
+    return QuantidadeProfessores;
+  }
+
+  public void setQuantidadeProfessores(int quantidadeProfessores) {
+    QuantidadeProfessores = quantidadeProfessores;
+  }
 }
