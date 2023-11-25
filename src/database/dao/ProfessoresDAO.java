@@ -6,10 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
-
-import database.model.Curso;
 import database.model.Professor;
 
 public class ProfessoresDAO {
@@ -68,15 +65,15 @@ public class ProfessoresDAO {
   }
 
   private boolean NomeDeveSerUnico(String nome) throws SQLException {
-    pstSelectWhere.clearParameters();
-    pstSelectWhere.setString(1, nome.trim().toUpperCase());
-    ResultSet resultado = pstSelectWhere.executeQuery();
-    if (resultado.next()) {
-      String nomeBanco = resultado.getString("nome").trim().toUpperCase();
-      return nomeBanco.equals(nome.trim().toUpperCase());
+    ArrayList<Professor> professores = this.selectAll();
+    boolean resultado = false;
+    
+    for (Professor professor : professores) {
+      if (professor.getNome().trim().toUpperCase().equals(nome.trim().toUpperCase())) {
+        resultado = true;
+        break;
+      }
     }
-
-    return false;
+    return resultado;
   }
-
 }

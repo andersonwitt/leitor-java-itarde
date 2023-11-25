@@ -6,10 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
-
-import database.model.Curso;
 import database.model.Disciplina;
 
 public class DisciplinasDAO {
@@ -34,15 +31,15 @@ public class DisciplinasDAO {
     ResultSet resultado = pstSelectAll.executeQuery();
     while (resultado.next()) {
 
-      Disciplina c = new Disciplina();
+      Disciplina d = new Disciplina();
 
-      c.setId(resultado.getString("id"));
-      c.setNome(Integer.parseInt(resultado.getString("id")));
-      c.setCursoId(resultado.getInt("id_curso"));
-      c.setDiaSemana(Integer.toString(resultado.getInt("dia_semana")));
-      c.setCodigoDiaSemana(resultado.getInt("dia_semana"));
-      c.setQuantidadeProfessores(resultado.getInt("quantidade_professores"));
-      listaDisciplina.add(c);    }
+      d.setId(resultado.getString("id"));
+      d.setNome(Integer.parseInt(resultado.getString("id")));
+      d.setCursoId(resultado.getInt("id_curso"));
+      d.setDiaSemana(Integer.toString(resultado.getInt("dia_semana")));
+      d.setCodigoDiaSemana(resultado.getInt("dia_semana"));
+      d.setQuantidadeProfessores(resultado.getInt("quantidade_professores"));
+      listaDisciplina.add(d);    }
 
     return listaDisciplina;
   }
