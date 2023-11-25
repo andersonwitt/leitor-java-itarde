@@ -23,7 +23,11 @@ import javax.swing.table.JTableHeader;
 
 import database.ConnectionFactory;
 import database.dao.CursosDAO;
+import database.dao.DisciplinasDAO;
+import database.dao.FasesDAO;
+import database.dao.ProfessoresDAO;
 import database.model.Curso;
+import database.model.Disciplina;
 import database.model.Fase;
 
 public class Layout extends JFrame {
@@ -228,12 +232,21 @@ public class Layout extends JFrame {
           if (conexao != null) {
             System.out.println("CONECTOU !!!!");
 
-            CursosDAO dao = new CursosDAO(conexao);
+            CursosDAO cursosDao = new CursosDAO(conexao);
+            FasesDAO fasesDao = new FasesDAO(conexao);
+            DisciplinasDAO disciplinasDao = new DisciplinasDAO(conexao);
+            ProfessoresDAO professoresDao = new ProfessoresDAO(conexao);
+
             for (Curso c : result.Cursos) {
-              var cursoId = dao.insert(c);
-              // for (Fase f : result.Fases) {
-              //   var faseId = dao.insert(f);
-              // }
+              var cursoId = cursosDao.insert(c);
+              for (Fase f : result.Fases) {
+                f.setCursoId(cursoId);
+                var faseId = fasesDao.insert(f);
+              }
+              for (Disciplina d : result.Disciplinas) {
+                d.setCursoId(cursoId);
+                var disciplinaId = disciplinasDao.insert(d);
+              }
             }
 
           } else {

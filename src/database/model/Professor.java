@@ -7,6 +7,7 @@ public class Professor {
   private String Nome;
   private int TituloID;
   private String Titulo;
+  private int CursoId;
 
   public int getId() {
     return Id;
@@ -24,7 +25,7 @@ public class Professor {
     Nome = nome;
   }
 
-  public int getTituloID() {
+  public int getTituloId() {
     return TituloID;
   }
 
@@ -38,5 +39,13 @@ public class Professor {
 
   public void setTitulo(String tituloID) {
     Titulo = TituloDocente.items.get(tituloID);
+  }
+
+  public int getCursoId() {
+    return CursoId;
+  }
+
+  public void setCursoId(int cursoId) {
+    CursoId = cursoId;
   }
 }

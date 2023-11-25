@@ -5,6 +5,7 @@ public class Fase {
   private String Nome;
   private int QuantidadeDisciplinas;
   private int QuantidadeProfessores;
+  private int CursoId;
 
   public int getId() {
     return Id;
@@ -37,4 +38,13 @@ public class Fase {
   public void setQuantidadeProfessores(int quantidadeProfessores) {
     QuantidadeProfessores = quantidadeProfessores;
   }
+
+  public int getCursoId() {
+    return CursoId;
+  }
+
+  public void setCursoId(int cursoId) {
+    CursoId = cursoId;
+  }
+
 }
