@@ -7,13 +7,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import database.model.Curso;
 import database.model.Professor;
 
 public class ProfessoresDAO {
 
   private String selectAll = "select * from tb_curso";
-  private String selectWhere = "select * from tb_curso where id = ?";
+  private String selectWhere = "select * from tb_professores where nome = ?";
   private String insert = "insert into tb_professores(nome, titulo_docente, id_curso) values (?, ?, ?)";
 
   private PreparedStatement pstSelectAll;
@@ -48,6 +50,11 @@ public class ProfessoresDAO {
   }
 
   public int insert(Professor professor) throws SQLException {
+    if (NomeDeveSerUnico(professor.getNome())) {
+      JOptionPane.showMessageDialog(null, "O professor " + professor.getNome() + " já existe no banco de dados.");
+      return -1;
+    }
+
     pstInsert.clearParameters();
     pstInsert.setString(1, professor.getNome());
     pstInsert.setInt(2, professor.getTituloId());
@@ -60,7 +67,18 @@ public class ProfessoresDAO {
     } else {
       return -9;
     }
+  }
 
+  private boolean NomeDeveSerUnico(String nome) throws SQLException {
+    pstSelectWhere.clearParameters();
+    pstSelectWhere.setString(1, nome.trim().toUpperCase());
+    ResultSet resultado = pstSelectWhere.executeQuery();
+    if (resultado.next()) {
+      String nomeBanco = resultado.getString("nome").trim().toUpperCase();
+      return nomeBanco.equals(nome.trim().toUpperCase());
+    }
+
+    return false;
   }
 
 }

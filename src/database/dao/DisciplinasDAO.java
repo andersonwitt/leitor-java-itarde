@@ -7,13 +7,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import database.model.Curso;
 import database.model.Disciplina;
 
 public class DisciplinasDAO {
 
   private String selectAll = "select * from tb_curso";
-  private String selectWhere = "select * from tb_curso where id = ?";
+  private String selectWhere = "select * from tb_disciplinas where id = ?";
   private String insert = "insert into tb_disciplinas(id, dia_semana, quantidade_professores, id_curso) values (?, ?, ?, ?)";
 
   private PreparedStatement pstSelectAll;
@@ -40,7 +42,6 @@ public class DisciplinasDAO {
       String PeriodoInicial = resultado.getString("qtdDisciplinas");
       String PeriodoFinal = resultado.getString("qtdProfessores");
 
-
       listaCurso.add(c);
     }
 
@@ -48,11 +49,16 @@ public class DisciplinasDAO {
   }
 
   public int insert(Disciplina disciplina) throws SQLException {
+    if (idDeveSerUnico(Integer.parseInt(disciplina.getId()))) {
+      JOptionPane.showMessageDialog(null, "A disciplina " + disciplina.getNome() + " já existe no banco de dados!");
+      return Integer.parseInt(disciplina.getId());
+    }
+
     pstInsert.clearParameters();
-    pstInsert.setString(1, disciplina.getId());
+    pstInsert.setString(1, Integer.toString(Integer.parseInt(disciplina.getId())));
     pstInsert.setInt(2, disciplina.getCodigoDiaSemana());
     pstInsert.setInt(3, disciplina.getQuantidadeProfessores());
-    pstInsert.setInt(4,disciplina.getCursoId());
+    pstInsert.setInt(4, disciplina.getCursoId());
     pstInsert.execute();
 
     ResultSet r = pstInsert.getGeneratedKeys();
@@ -61,7 +67,12 @@ public class DisciplinasDAO {
     } else {
       return -9;
     }
-
   }
 
+  private boolean idDeveSerUnico(int id) throws SQLException {
+    pstSelectWhere.clearParameters();
+    pstSelectWhere.setInt(1, id);
+    ResultSet resultado = pstSelectWhere.executeQuery();
+    return resultado.next();
+  }
 }

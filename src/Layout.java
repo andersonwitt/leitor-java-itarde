@@ -229,9 +229,10 @@ public class Layout extends JFrame {
         try {
           // Connection conexao = ConnectionFactory.getConnection("127.0.0.1", 3306,
           // "sistema", "root", "@Root");
-          Connection conexao = ConnectionFactory.getConnection("26.100.201.167", 3306, "SistemaEscolar", "root", "unesc");
+          Connection conexao = ConnectionFactory.getConnection("26.100.201.167", 3306, "SistemaEscolar2", "root",
+              "unesc");
           if (conexao != null) {
-            System.out.println("CONECTOU !!!!");
+            System.out.println("Dados inseridos com sucesso!");
 
             CursosDAO cursosDao = new CursosDAO(conexao);
             FasesDAO fasesDao = new FasesDAO(conexao);
@@ -253,9 +254,8 @@ public class Layout extends JFrame {
                 var professorId = professoresDao.insert(p);
               }
             }
-
           } else {
-            System.out.println("NÃO CONECTOU !!!!");
+            System.out.println("Não foi possível estabelecer conexão com o banco, tente novamente!");
           }
         } catch (SQLException ex) {
           ex.printStackTrace();

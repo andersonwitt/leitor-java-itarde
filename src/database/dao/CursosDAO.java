@@ -9,12 +9,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.swing.JOptionPane;
+
 import database.model.Curso;
 
 public class CursosDAO {
 
   private String selectAll = "select * from tb_curso";
-  private String selectWhere = "select * from tb_curso where id = ?";
+  private String selectWhere = "select * from tb_cursos where nome = ?";
   private String insert = "insert into tb_cursos(nome, periodo_inicial, periodo_final,  data_processamento, sequencial, versao_layout) values (?, ?, ?, ?, ?, ?)";
 
   private PreparedStatement pstSelectAll;
@@ -51,6 +53,13 @@ public class CursosDAO {
   }
 
   public int insert(Curso curso) throws SQLException {
+    var cursoExistente = CursoJaExiste(curso);
+    if (cursoExistente != -1) {
+      JOptionPane.showMessageDialog(null,
+          "O curso " + curso.getNome() + " já existe no banco de dados!");
+      return cursoExistente;
+    }
+
     pstInsert.clearParameters();
     pstInsert.setString(1, curso.getNome());
     pstInsert.setString(2, curso.getPeriodoInicial());
@@ -70,4 +79,22 @@ public class CursosDAO {
 
   }
 
+  private int CursoJaExiste(Curso curso) throws SQLException {
+    pstSelectWhere.clearParameters();
+    pstSelectWhere.setString(1, curso.getNome().trim().toUpperCase());
+
+    ResultSet resultado = pstSelectWhere.executeQuery();
+    if (resultado.next()) {
+      String nomeBanco = resultado.getString("nome").trim().toUpperCase();
+      int sequencialBanco = resultado.getInt("sequencial");
+      String versaoLayoutBanco = resultado.getString("versao_layout").trim().toUpperCase();
+
+      if (nomeBanco.equals(curso.getNome().trim().toUpperCase()) &&
+          sequencialBanco == curso.getSequencia() &&
+          versaoLayoutBanco.equals(curso.getVersaoLayout().trim().toUpperCase())) {
+        return resultado.getInt("id");
+      }
+    }
+    return -1;
+  }
 }
