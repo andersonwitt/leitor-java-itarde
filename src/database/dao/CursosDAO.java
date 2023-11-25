@@ -38,8 +38,8 @@ public class CursosDAO {
 
       c.setId(resultado.getInt("id"));
       c.setNome(resultado.getString("nome"));
-      c.setPeriodoInicial(resultado.getInt("periodo_inicial"));
-      c.setPeriodoFinal(resultado.getInt("periodo_final"));
+      c.setPeriodoInicial(resultado.getString("periodo_inicial"));
+      c.setPeriodoFinal(resultado.getString("periodo_final"));
       c.setDataProcessamento(resultado.getDate("data_processamento"));
       c.setSequencia(resultado.getInt("sequencial"));
       c.setVersaoLayout(resultado.getString("versao_layout"));
@@ -53,8 +53,8 @@ public class CursosDAO {
   public int insert(Curso curso) throws SQLException {
     pstInsert.clearParameters();
     pstInsert.setString(1, curso.getNome());
-    pstInsert.setInt(2, curso.getPeriodoInicial());
-    pstInsert.setInt(3, curso.getPeriodoFinal());
+    pstInsert.setString(2, curso.getPeriodoInicial());
+    pstInsert.setString(3, curso.getPeriodoFinal());
     pstInsert.setString(4, curso.getDataProcessamento().toString());
     pstInsert.setInt(5, curso.getSequencia());
     pstInsert.setString(6, curso.getVersaoLayout());

@@ -49,8 +49,8 @@ public class ProfessoresDAO {
   public int insert(Curso curso) throws SQLException {
     pstInsert.clearParameters();
     pstInsert.setString(1, curso.getNome());
-    pstInsert.setInt(2, curso.getPeriodoInicial());
-    pstInsert.setInt(3, curso.getPeriodoFinal());
+    pstInsert.setString(2, curso.getPeriodoInicial());
+    pstInsert.setString(3, curso.getPeriodoFinal());
     pstInsert.execute();
 
     ResultSet r = pstInsert.getGeneratedKeys();
