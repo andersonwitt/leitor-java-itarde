@@ -249,8 +249,6 @@ public class Layout extends JFrame {
           Connection conexao = ConnectionFactory.getConnection("26.100.201.167", 3306, "SistemaEscolar", "root",
               "unesc");
           if (conexao != null) {
-            System.out.println("Dados inseridos com sucesso!");
-
             CursosDAO cursosDao = new CursosDAO(conexao);
             FasesDAO fasesDao = new FasesDAO(conexao);
             DisciplinasDAO disciplinasDao = new DisciplinasDAO(conexao);
@@ -283,9 +281,9 @@ public class Layout extends JFrame {
             btnInserir.setBackground(Color.decode("#CCCCCC"));
             btnInserir.setEnabled(false);
             btnLimpar.setEnabled(false);
-            System.out.println("Dados inseridos com sucesso!");
+            JOptionPane.showMessageDialog(null, "Dados inseridos com sucesso!");
           } else {
-            System.out.println("Não foi possível estabelecer conexão com o banco, tente novamente!");
+            JOptionPane.showMessageDialog(null, "Não foi possível estabelecer conexão com o banco, tente novamente!");
           }
         } catch (SQLException ex) {
           ex.printStackTrace();
