@@ -32,13 +32,14 @@ public class Leitor {
     String codigoDisciplina = line.substring(1, 7);
     String diaSemana = line.substring(7, 9);
     String quantidadeProfessores = line.substring(9, 11);
+    Integer cod_dia = Integer.parseInt(diaSemana);
 
     Disciplina disciplina = new Disciplina();
     
     disciplina.setId(codigoDisciplina);
     disciplina.setNome(Integer.parseInt(codigoDisciplina));
     disciplina.setCodigoDiaSemana(Integer.parseInt(diaSemana));
-    disciplina.setDiaSemana(diaSemana);
+    disciplina.setDiaSemana(cod_dia.toString());
     disciplina.setQuantidadeProfessores(Integer.parseInt(quantidadeProfessores));
 
     return disciplina;
@@ -94,7 +95,7 @@ public class Leitor {
 
     professor.setNome(nome);
     professor.setTituloID(Integer.parseInt(tituloId));
-    professor.setTitulo(tituloId);
+    professor.setTitulo(Integer.toString(Integer.parseInt(tituloId)));
 
     return professor;
   }

@@ -164,6 +164,19 @@ public class Layout extends JFrame {
     btnLimpar = new JButton(new AbstractAction("Limpar campos") {
       @Override
       public void actionPerformed(ActionEvent e) {
+
+        // mdlCurso.
+
+        // mdlProfessor.addRow(new Object[] { item.getNome(), item.getTitulo() });
+
+        // mdlFase
+        //     .addRow(new Object[] { item.getNome(), item.getQuantidadeDisciplinas(),
+        //         item.getQuantidadeProfessores() });
+
+        // mdlDisciplina
+        //     .addRow(new Object[] { item.getNome(), item.getDiaSemana(),
+        //         item.getQuantidadeProfessores() });
+
       }
     });
     btnLimpar.setBounds(20, 630, 200, 40);
@@ -229,7 +242,8 @@ public class Layout extends JFrame {
         try {
           // Connection conexao = ConnectionFactory.getConnection("127.0.0.1", 3306,
           // "sistema", "root", "@Root");
-          Connection conexao = ConnectionFactory.getConnection("26.100.201.167", 3306, "SistemaEscolar", "root", "unesc");
+          Connection conexao = ConnectionFactory.getConnection("26.100.201.167", 3306, "SistemaEscolar", "root",
+              "unesc");
           if (conexao != null) {
             System.out.println("CONECTOU !!!!");
 
@@ -242,15 +256,15 @@ public class Layout extends JFrame {
               var cursoId = cursosDao.insert(c);
               for (Fase f : result.Fases) {
                 f.setCursoId(cursoId);
-                var faseId = fasesDao.insert(f);
+                fasesDao.insert(f);
               }
               for (Disciplina d : result.Disciplinas) {
                 d.setCursoId(cursoId);
-                var disciplinaId = disciplinasDao.insert(d);
+                disciplinasDao.insert(d);
               }
               for (Professor p : result.Professores) {
                 p.setCursoId(cursoId);
-                var professorId = professoresDao.insert(p);
+                professoresDao.insert(p);
               }
             }
 
