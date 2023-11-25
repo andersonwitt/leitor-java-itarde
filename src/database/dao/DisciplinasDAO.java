@@ -13,8 +13,7 @@ import database.model.Curso;
 import database.model.Disciplina;
 
 public class DisciplinasDAO {
-
-  private String selectAll = "select * from tb_curso";
+  private String selectAll = "select * from tb_disciplinas";
   private String selectWhere = "select * from tb_disciplinas where id = ?";
   private String insert = "insert into tb_disciplinas(id, dia_semana, quantidade_professores, id_curso) values (?, ?, ?, ?)";
 
@@ -28,24 +27,24 @@ public class DisciplinasDAO {
     pstInsert = conexao.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
   }
 
-  public ArrayList<Curso> selectAll() throws SQLException {
+  public ArrayList<Disciplina> selectAll() throws SQLException {
 
-    ArrayList<Curso> listaCurso = new ArrayList<Curso>();
+    ArrayList<Disciplina> listaDisciplina = new ArrayList<Disciplina>();
 
     ResultSet resultado = pstSelectAll.executeQuery();
     while (resultado.next()) {
 
-      Curso c = new Curso();
+      Disciplina c = new Disciplina();
 
-      int Id = resultado.getInt("id");
-      String Nome = resultado.getString("nomeCurso");
-      String PeriodoInicial = resultado.getString("qtdDisciplinas");
-      String PeriodoFinal = resultado.getString("qtdProfessores");
+      c.setId(resultado.getString("id"));
+      c.setNome(Integer.parseInt(resultado.getString("id")));
+      c.setCursoId(resultado.getInt("id_curso"));
+      c.setDiaSemana(Integer.toString(resultado.getInt("dia_semana")));
+      c.setCodigoDiaSemana(resultado.getInt("dia_semana"));
+      c.setQuantidadeProfessores(resultado.getInt("quantidade_professores"));
+      listaDisciplina.add(c);    }
 
-      listaCurso.add(c);
-    }
-
-    return listaCurso;
+    return listaDisciplina;
   }
 
   public int insert(Disciplina disciplina) throws SQLException {

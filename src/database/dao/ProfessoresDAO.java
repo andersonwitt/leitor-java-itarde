@@ -13,9 +13,8 @@ import database.model.Curso;
 import database.model.Professor;
 
 public class ProfessoresDAO {
-
-  private String selectAll = "select * from tb_curso";
   private String selectWhere = "select * from tb_professores where nome = ?";
+  private String selectAll = "select * from tb_professores";
   private String insert = "insert into tb_professores(nome, titulo_docente, id_curso) values (?, ?, ?)";
 
   private PreparedStatement pstSelectAll;
@@ -28,25 +27,24 @@ public class ProfessoresDAO {
     pstInsert = conexao.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
   }
 
-  public ArrayList<Curso> selectAll() throws SQLException {
+  public ArrayList<Professor> selectAll() throws SQLException {
 
-    ArrayList<Curso> listaCurso = new ArrayList<Curso>();
+    ArrayList<Professor> listaProfessor = new ArrayList<Professor>();
 
     ResultSet resultado = pstSelectAll.executeQuery();
     while (resultado.next()) {
 
-      Curso c = new Curso();
+      Professor p = new Professor();
 
-      int Id = resultado.getInt("id");
-      String Nome = resultado.getString("nomeCurso");
-      String PeriodoInicial = resultado.getString("qtdDisciplinas");
-      String PeriodoFinal = resultado.getString("qtdProfessores");
+      p.setId(resultado.getInt("id"));
+      p.setNome(resultado.getString("nome"));
+      p.setTituloID(resultado.getInt("titulo_docente"));
+      p.setTitulo(Integer.toString(resultado.getInt("titulo_docente")));
 
-      c.setId(Id);
-      listaCurso.add(c);
+      listaProfessor.add(p);
     }
 
-    return listaCurso;
+    return listaProfessor;
   }
 
   public int insert(Professor professor) throws SQLException {

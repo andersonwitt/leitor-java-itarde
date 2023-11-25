@@ -4,10 +4,10 @@ import java.util.HashMap;
 public class TituloDocente {
   public final static HashMap<String, String> items = new HashMap<String, String>() {
     {
-      put("01", "Pós-Graduação");
-      put("02", "Mestrado");
-      put("03", "Doutorado");
-      put("04", "Pós-Doutorado");
+      put("1", "Pós-Graduação");
+      put("2", "Mestrado");
+      put("3", "Doutorado");
+      put("4", "Pós-Doutorado");
     }
   };
 }

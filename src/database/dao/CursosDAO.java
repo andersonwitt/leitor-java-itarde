@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,11 +13,11 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 
 import database.model.Curso;
+import utils.DateUtils;
 
 public class CursosDAO {
-
-  private String selectAll = "select * from tb_curso";
   private String selectWhere = "select * from tb_cursos where nome = ?";
+  private String selectAll = "select * from tb_cursos";
   private String insert = "insert into tb_cursos(nome, periodo_inicial, periodo_final,  data_processamento, sequencial, versao_layout) values (?, ?, ?, ?, ?, ?)";
 
   private PreparedStatement pstSelectAll;
@@ -36,17 +37,17 @@ public class CursosDAO {
     ResultSet resultado = pstSelectAll.executeQuery();
     while (resultado.next()) {
 
-      Curso c = new Curso();
+      Curso curso = new Curso();
 
-      c.setId(resultado.getInt("id"));
-      c.setNome(resultado.getString("nome"));
-      c.setPeriodoInicial(resultado.getString("periodo_inicial"));
-      c.setPeriodoFinal(resultado.getString("periodo_final"));
-      c.setDataProcessamento(resultado.getDate("data_processamento"));
-      c.setSequencia(resultado.getInt("sequencial"));
-      c.setVersaoLayout(resultado.getString("versao_layout"));
+      curso.setId(resultado.getInt("id"));
+      curso.setNome(resultado.getString("nome"));
+      curso.setPeriodoInicial(resultado.getString("periodo_inicial"));
+      curso.setPeriodoFinal(resultado.getString("periodo_final"));
+      curso.setDataProcessamento(DateUtils.getDateFormated(resultado.getDate("data_processamento")));
+      curso.setSequencia(resultado.getInt("sequencial"));
+      curso.setVersaoLayout(resultado.getString("versao_layout"));
 
-      listaCurso.add(c);
+      listaCurso.add(curso);
     }
 
     return listaCurso;
@@ -76,9 +77,7 @@ public class CursosDAO {
     } else {
       return -9;
     }
-
   }
-
   private int CursoJaExiste(Curso curso) throws SQLException {
     pstSelectWhere.clearParameters();
     pstSelectWhere.setString(1, curso.getNome().trim().toUpperCase());

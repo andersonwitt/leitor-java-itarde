@@ -13,9 +13,8 @@ import database.model.Curso;
 import database.model.Fase;
 
 public class FasesDAO {
-
-  private String selectAll = "select * from tb_curso";
   private String selectWhere = "select * from tb_fases where nome = ?";
+  private String selectAll = "select * from tb_fases";
   private String insert = "insert into tb_fases(nome, quantidade_disciplinas, quantidade_professores, id_curso) values (?, ?, ?, ?)";
 
   private PreparedStatement pstSelectAll;
@@ -28,24 +27,23 @@ public class FasesDAO {
     pstInsert = conexao.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
   }
 
-  public ArrayList<Curso> selectAll() throws SQLException {
-
-    ArrayList<Curso> listaCurso = new ArrayList<Curso>();
+  public ArrayList<Fase> selectAll() throws SQLException {
+    ArrayList<Fase> listaFase = new ArrayList<Fase>();
 
     ResultSet resultado = pstSelectAll.executeQuery();
     while (resultado.next()) {
 
-      Curso c = new Curso();
+      Fase f = new Fase();
 
-      int Id = resultado.getInt("id");
-      String Nome = resultado.getString("nomeCurso");
-      String PeriodoInicial = resultado.getString("qtdDisciplinas");
-      String PeriodoFinal = resultado.getString("qtdProfessores");
+      f.setId(resultado.getInt("id"));
+      f.setNome(resultado.getString("nome"));
+      f.setQuantidadeDisciplinas(resultado.getInt("quantidade_disciplinas"));
+      f.setQuantidadeProfessores(resultado.getInt("quantidade_professores"));
 
-      listaCurso.add(c);
+      listaFase.add(f);
     }
 
-    return listaCurso;
+    return listaFase;
   }
 
   public int insert(Fase fase) throws SQLException {
