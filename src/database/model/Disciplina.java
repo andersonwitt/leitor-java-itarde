@@ -28,15 +28,15 @@ public class Disciplina {
   }
 
   public void setNome(int codigoDisciplina) {
-    Nome = Listas.Disciplina.items.get(Integer.toString(codigoDisciplina));
+    Nome = Listas.Disciplinas.items.get(Integer.toString(codigoDisciplina));
   }
 
   public String getDiaSemana() {
     return DiaSemana;
   }
 
-  public void setDiaSemana(int codigoDiaSemana) {
-    DiaSemana = Listas.DiaSemana.items.get(Integer.toString(codigoDiaSemana));
+  public void setDiaSemana(String codigoDiaSemana) {
+    DiaSemana = Listas.DiaSemana.items.get(codigoDiaSemana);
   }
 
   public int getQuantidadeProfessores() {

@@ -36,12 +36,7 @@ public class Professor {
     return Titulo;
   }
 
-  public void setTitulo(int tituloID) {
-
-    Titulo = TituloDocente.items.get(Integer.toString(tituloID));
-  }
-
-  public Professor(int tituloID) {
-    this.Titulo = TituloDocente.items.get(Integer.toString(tituloID));
+  public void setTitulo(String tituloID) {
+    Titulo = TituloDocente.items.get(tituloID);
   }
 }

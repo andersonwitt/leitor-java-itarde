@@ -1,9 +1,10 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.util.Date;
-
 import database.model.Curso;
 import utils.DateUtils;
+import database.model.Professor;
+import database.model.Disciplina;
 
 public class Leitor {
 
@@ -30,21 +31,19 @@ public class Leitor {
     // quantidadeProfessores));
   }
 
-  void GetDisciplina(String line, LeitorResultado resultado) {
-    var disciplina = line.substring(1, 7);
-    System.out.println("Código Disciplina:");
-    System.out.println(disciplina);
+  Disciplina GetDisciplina(String line) {
+    String codigoDisciplina = line.substring(1, 7);
+    String diaSemana = line.substring(7, 9);
+    String quantidadeProfessores = line.substring(9, 11);
 
-    var diaSemana = line.substring(7, 9);
-    System.out.println("Semana:");
-    System.out.println(diaSemana);
+    Disciplina disciplina = new Disciplina();
 
-    var quantidadeProfessores = line.substring(9, 11);
-    System.out.println("Quantidade de Professores:");
-    System.out.println(quantidadeProfessores);
+    disciplina.setNome(Integer.parseInt(codigoDisciplina));
+    disciplina.setCodigoDiaSemana(Integer.parseInt(diaSemana));
+    disciplina.setDiaSemana(diaSemana);
+    disciplina.setQuantidadeProfessores(Integer.parseInt(quantidadeProfessores));
 
-    // resultado.Disciplinas.add(new Disciplina(disciplina, diaSemana,
-    // quantidadeProfessores));
+    return disciplina;
   }
 
   void GetCurso(String line, LeitorResultado resultado) {
@@ -91,13 +90,19 @@ public class Leitor {
     resultado.Cursos.add(curso);
   }
 
-  String GetProfessor(String linha) {
+  Professor GetProfessor(String linha) {
     int separador = linha.indexOf("  ");
-    int separadorTitulo = linha.indexOf("  ");
-    String nome = linha.substring(1, separador);
-    String titulo = linha.substring(separadorTitulo, linha.length()).trim();
 
-    return "";
+    String nome = linha.substring(1, separador);
+    String tituloId = linha.substring(separador, linha.length()).trim();
+
+    Professor professor = new Professor();
+
+    professor.setNome(nome);
+    professor.setTituloID(Integer.parseInt(tituloId));
+    professor.setTitulo(tituloId);
+
+    return professor;
   }
 
   LeitorResultado GetTextFromFile() {
@@ -109,14 +114,12 @@ public class Leitor {
       while (line != null) {
         if (Consts.IsTypeOf(ConstEnum.Curso, line)) {
           GetCurso(line, resultado);
-          // GetCursoDate(line);
-          // GetCursoFase(line);
         } else if (Consts.IsTypeOf(ConstEnum.Fase, line)) {
           GetFase(line, resultado);
         } else if (Consts.IsTypeOf(ConstEnum.Disciplina, line)) {
-          GetDisciplina(line, resultado);
+          resultado.Disciplinas.add(GetDisciplina(line));
         } else if (Consts.IsTypeOf(ConstEnum.Professor, line)) {
-          // resultado.Professores.add(new Professor(GetProfessor(line),
+          resultado.Professores.add(GetProfessor(line));
           // GetTituloProfessor(line)));
         }
 

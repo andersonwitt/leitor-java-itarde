@@ -98,13 +98,13 @@ public class Layout extends JFrame {
 
     // Dados
     Object[][] data = {};
-    Object[] professoresColumns = { "Codigo", "Nome", "Título" };
+    Object[] professoresColumns = { "Nome", "Título" };
 
-    Object[] disciplinaColumns = { "Código", "Nome", "Dia da Semana", "Quantidade de Professores" };
+    Object[] disciplinaColumns = { "Nome", "Dia da Semana", "Quantidade de Professores" };
 
-    Object[] fasesColumns = { "Código", "Nome", "Quantidade de Disciplinas", "Quantidade de Professores" };
+    Object[] fasesColumns = { "Nome", "Quantidade de Disciplinas", "Quantidade de Professores" };
 
-    Object[] cursosColumns = { "Codigo", "Nome", "Data de processamento", "Período Inicial", "Período Final",
+    Object[] cursosColumns = { "Nome", "Data de processamento", "Período Inicial", "Período Final",
         "Sequência", "Versão do Layout" };
 
     lblCurso = new JLabel("Cursos:");
@@ -191,7 +191,7 @@ public class Layout extends JFrame {
               });
 
               result.Professores.forEach(item -> {
-                mdlProfessor.addRow(new Object[] { item.getId(), item.getNome(), item.getTitulo() });
+                mdlProfessor.addRow(new Object[] { item.getNome(), item.getTitulo() });
               });
 
               result.Fases.forEach(item -> {
@@ -202,7 +202,7 @@ public class Layout extends JFrame {
 
               result.Disciplinas.forEach(item -> {
                 mdlDisciplina
-                    .addRow(new Object[] { item.getId(), item.getNome(), item.getDiaSemana(),
+                    .addRow(new Object[] { item.getNome(), item.getDiaSemana(),
                         item.getQuantidadeProfessores() });
               });
             }
