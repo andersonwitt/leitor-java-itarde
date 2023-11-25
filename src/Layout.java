@@ -161,25 +161,6 @@ public class Layout extends JFrame {
     scrollPaneProfessor.setBounds(20, 515, 845, 100);
     getContentPane().add(scrollPaneProfessor);
 
-    btnLimpar = new JButton(new AbstractAction("Limpar campos") {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        mdlCurso.setRowCount(0);
-        mdlProfessor.setRowCount(0);
-        mdlFase.setRowCount(0);
-        mdlDisciplina.setRowCount(0);
-        txfChooser.setSelectedFile(null);
-        txtCaminho.setText("");
-        result = null;
-      }
-    });
-
-    btnLimpar.setBounds(20, 630, 200, 40);
-    btnLimpar.setForeground(Color.WHITE);
-    btnLimpar.setBackground(Color.decode("#CA3C25"));
-    btnLimpar.setBorder(new LineBorder(Color.BLACK));
-    getContentPane().add(btnLimpar);
-
     btnImportar = new JButton(new AbstractAction("Importar o arquivo") {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -219,6 +200,11 @@ public class Layout extends JFrame {
                     .addRow(new Object[] { item.getNome(), item.getDiaSemana(),
                         item.getQuantidadeProfessores() });
               });
+
+              btnInserir.setBackground(Color.decode("#7FB069"));
+              btnLimpar.setBackground(Color.decode("#CA3C25"));
+              btnLimpar.setEnabled(true);
+              btnInserir.setEnabled(true);
             }
             break;
           }
@@ -230,6 +216,29 @@ public class Layout extends JFrame {
     btnImportar.setBackground(Color.decode("#4464AD"));
     btnImportar.setBorder(new LineBorder(Color.BLACK));
     getContentPane().add(btnImportar);
+
+    btnLimpar = new JButton(new AbstractAction("Limpar campos") {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        mdlCurso.setRowCount(0);
+        mdlProfessor.setRowCount(0);
+        mdlFase.setRowCount(0);
+        mdlDisciplina.setRowCount(0);
+        txfChooser.setSelectedFile(null);
+        txtCaminho.setText("");
+        result = null;
+        btnLimpar.setBackground(Color.decode("#CCCCCC"));
+        btnInserir.setBackground(Color.decode("#CCCCCC"));
+        btnInserir.setEnabled(false);
+        btnLimpar.setEnabled(false);
+      }
+    });
+    btnLimpar.setBounds(20, 630, 200, 40);
+    btnLimpar.setForeground(Color.WHITE);
+    btnLimpar.setBackground(Color.decode("#CCCCCC"));
+    btnLimpar.setBorder(new LineBorder(Color.BLACK));
+    btnLimpar.setEnabled(false);
+    getContentPane().add(btnLimpar);
 
     btnInserir = new JButton(new AbstractAction("Inserir no banco") {
       @Override
@@ -262,6 +271,19 @@ public class Layout extends JFrame {
                 professoresDao.insert(p);
               }
             }
+
+            mdlCurso.setRowCount(0);
+            mdlProfessor.setRowCount(0);
+            mdlFase.setRowCount(0);
+            mdlDisciplina.setRowCount(0);
+            txfChooser.setSelectedFile(null);
+            txtCaminho.setText("");
+            result = null;
+            btnLimpar.setBackground(Color.decode("#CCCCCC"));
+            btnInserir.setBackground(Color.decode("#CCCCCC"));
+            btnInserir.setEnabled(false);
+            btnLimpar.setEnabled(false);
+            System.out.println("Dados inseridos com sucesso!");
           } else {
             System.out.println("Não foi possível estabelecer conexão com o banco, tente novamente!");
           }
@@ -272,8 +294,9 @@ public class Layout extends JFrame {
     });
     btnInserir.setBounds(663, 630, 200, 40);
     btnInserir.setForeground(Color.WHITE);
-    btnInserir.setBackground(Color.decode("#7FB069"));
+    btnInserir.setBackground(Color.decode("#CCCCCC"));
     btnInserir.setBorder(new LineBorder(Color.BLACK));
+    btnInserir.setEnabled(false);
     getContentPane().add(btnInserir);
   }
 
