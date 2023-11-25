@@ -29,6 +29,7 @@ import database.dao.ProfessoresDAO;
 import database.model.Curso;
 import database.model.Disciplina;
 import database.model.Fase;
+import database.model.Professor;
 
 public class Layout extends JFrame {
   private JLabel lblChooser;
@@ -246,6 +247,10 @@ public class Layout extends JFrame {
               for (Disciplina d : result.Disciplinas) {
                 d.setCursoId(cursoId);
                 var disciplinaId = disciplinasDao.insert(d);
+              }
+              for (Professor p : result.Professores) {
+                p.setCursoId(cursoId);
+                var professorId = professoresDao.insert(p);
               }
             }
 
