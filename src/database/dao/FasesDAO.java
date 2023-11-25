@@ -7,11 +7,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import database.model.Curso;
+import database.model.Fase;
 
 public class FasesDAO {
 
-  private String selectAll = "select * from tb_curso";
+  private String selectAll = "select * from tb_fases";
   private String selectWhere = "select * from tb_curso where id = ?";
   private String insert = "insert into tb_curso(nomeCurso, qtdDisciplinas, qtdProfessores) values (?, ?, ?)";
 
@@ -25,25 +28,23 @@ public class FasesDAO {
     pstInsert = conexao.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
   }
 
-  public ArrayList<Curso> selectAll() throws SQLException {
-
-    ArrayList<Curso> listaCurso = new ArrayList<Curso>();
+  public ArrayList<Fase> selectAll() throws SQLException {
+    ArrayList<Fase> listaFase = new ArrayList<Fase>();
 
     ResultSet resultado = pstSelectAll.executeQuery();
     while (resultado.next()) {
 
-      Curso c = new Curso();
+      Fase f = new Fase();
 
-      int Id = resultado.getInt("id");
-      String Nome = resultado.getString("nomeCurso");
-      String PeriodoInicial = resultado.getString("qtdDisciplinas");
-      String PeriodoFinal = resultado.getString("qtdProfessores");
+      f.setId(resultado.getInt("id"));
+      f.setNome(resultado.getString("nome"));
+      f.setQuantidadeDisciplinas(resultado.getInt("quantidade_disciplinas"));
+      f.setQuantidadeProfessores(resultado.getInt("quantidade_professores"));
 
-
-      listaCurso.add(c);
+      listaFase.add(f);
     }
 
-    return listaCurso;
+    return listaFase;
   }
 
   public int insert(Curso curso) throws SQLException {

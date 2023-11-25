@@ -18,4 +18,14 @@ public class DateUtils {
             return null;
         }
     }
+
+    public static Date getDateFormated(java.sql.Date date) {
+        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String mysqlDateString = sdf.format(date);
+        try {
+            return sdf.parse(mysqlDateString);
+        } catch (ParseException e) {
+            return null;
+        }
+    }
 }
