@@ -164,21 +164,16 @@ public class Layout extends JFrame {
     btnLimpar = new JButton(new AbstractAction("Limpar campos") {
       @Override
       public void actionPerformed(ActionEvent e) {
-
-        // mdlCurso.
-
-        // mdlProfessor.addRow(new Object[] { item.getNome(), item.getTitulo() });
-
-        // mdlFase
-        //     .addRow(new Object[] { item.getNome(), item.getQuantidadeDisciplinas(),
-        //         item.getQuantidadeProfessores() });
-
-        // mdlDisciplina
-        //     .addRow(new Object[] { item.getNome(), item.getDiaSemana(),
-        //         item.getQuantidadeProfessores() });
-
+        mdlCurso.setRowCount(0);
+        mdlProfessor.setRowCount(0);
+        mdlFase.setRowCount(0);
+        mdlDisciplina.setRowCount(0);
+        txfChooser.setSelectedFile(null);
+        txtCaminho.setText("");
+        result = null;
       }
     });
+
     btnLimpar.setBounds(20, 630, 200, 40);
     btnLimpar.setForeground(Color.WHITE);
     btnLimpar.setBackground(Color.decode("#CA3C25"));
