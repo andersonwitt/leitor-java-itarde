@@ -53,7 +53,8 @@ public class Leitor {
     var caracteres = line.substring(separadorFase, line.length());
 
     String faseInicial = caracteres.substring(0, 7);
-    curso.setPeriodoInicial(Integer.parseInt(faseInicial.substring(5, 7)));
+    // curso.setPeriodoInicial(Integer.parseInt(faseInicial.substring(5, 7)));
+    curso.setPeriodoInicial(faseInicial);
     String faseFinal = "";
 
     separadorFase = caracteres.substring(7, caracteres.length()).toLowerCase().indexOf("fase");
@@ -61,7 +62,8 @@ public class Leitor {
 
     if (separadorFase != -1) {
       faseFinal = caracteres.substring(0, 7);
-      curso.setPeriodoFinal(Integer.parseInt(faseFinal.substring(5, 7)));
+      // curso.setPeriodoFinal(Integer.parseInt(faseFinal.substring(5, 7)));
+      curso.setPeriodoFinal(faseFinal);
     }
 
     curso.setSequencia(Integer.parseInt(caracteres.substring(7, 14)));

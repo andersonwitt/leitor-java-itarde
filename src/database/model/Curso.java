@@ -5,8 +5,8 @@ import java.util.Date;
 public class Curso {
   private int Id;
   private String Nome;
-  private int PeriodoInicial;
-  private int PeriodoFinal;
+  private String PeriodoInicial;
+  private String PeriodoFinal;
   private Date DataProcessamento;
   private int Sequencia;
   private String VersaoLayout;
@@ -27,19 +27,19 @@ public class Curso {
     Nome = nome;
   }
 
-  public int getPeriodoInicial() {
+  public String getPeriodoInicial() {
     return PeriodoInicial;
   }
 
-  public void setPeriodoInicial(int periodoInicial) {
+  public void setPeriodoInicial(String periodoInicial) {
     PeriodoInicial = periodoInicial;
   }
 
-  public int getPeriodoFinal() {
+  public String getPeriodoFinal() {
     return PeriodoFinal;
   }
 
-  public void setPeriodoFinal(int periodoFinal) {
+  public void setPeriodoFinal(String periodoFinal) {
     PeriodoFinal = periodoFinal;
   }
 

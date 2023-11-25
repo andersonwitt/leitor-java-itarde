@@ -24,6 +24,7 @@ import javax.swing.table.JTableHeader;
 import database.ConnectionFactory;
 import database.dao.CursosDAO;
 import database.model.Curso;
+import database.model.Fase;
 
 public class Layout extends JFrame {
   private JLabel lblChooser;
@@ -229,7 +230,10 @@ public class Layout extends JFrame {
 
             CursosDAO dao = new CursosDAO(conexao);
             for (Curso c : result.Cursos) {
-              var oi = dao.insert(c);
+              var cursoId = dao.insert(c);
+              // for (Fase f : result.Fases) {
+              //   var faseId = dao.insert(f);
+              // }
             }
 
           } else {
