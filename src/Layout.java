@@ -221,7 +221,9 @@ public class Layout extends JFrame {
       @Override
       public void actionPerformed(ActionEvent e) {
         try {
-          Connection conexao = ConnectionFactory.getConnection("127.0.0.1", 3306, "sistema", "root", "@Root");
+          // Connection conexao = ConnectionFactory.getConnection("127.0.0.1", 3306,
+          // "sistema", "root", "@Root");
+          Connection conexao = ConnectionFactory.getConnection("127.0.0.1", 3306, "SistemaEscolar", "root", "unesc");
           if (conexao != null) {
             System.out.println("CONECTOU !!!!");
 

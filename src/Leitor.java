@@ -1,13 +1,9 @@
 import java.io.BufferedReader;
 import java.io.File;
-import java.sql.Date;
+import java.util.Date;
 
 import database.model.Curso;
-import database.model.Disciplina;
-import database.model.Fase;
-import database.model.Professor;
 import utils.DateUtils;
-import utils.NumberUtils;
 
 public class Leitor {
 
@@ -63,6 +59,7 @@ public class Leitor {
     System.out.println("Inicio da Fase: ");
     System.out.println(caracteres.substring(0, 7));
     String faseInicial = caracteres.substring(0, 7);
+    curso.setVersaoLayout(faseInicial);
     String faseFinal = "";
 
     separadorFase = caracteres.substring(7, caracteres.length()).toLowerCase().indexOf("fase");
@@ -72,6 +69,7 @@ public class Leitor {
       System.out.println("Final da Fase: ");
       System.out.println(caracteres.substring(0, 7));
       faseFinal = caracteres.substring(0, 7);
+      curso.setVersaoLayout(faseFinal);
     }
     System.out.println("Sequencial: ");
     System.out.println(caracteres.substring(7, 14));
@@ -86,11 +84,10 @@ public class Leitor {
     int separadorDate = line.indexOf("  ");
 
     var caracteresDate = line.substring(separadorDate, line.length()).trim().substring(0, 8);
-    if (DateUtils.IsDate(caracteresDate)) {
-      // curso.setDataProcessamento(Date.valueOf(caracteresDate));
+    Date date = DateUtils.parseDate(caracteresDate);
+    if (date != null) {
+      curso.setDataProcessamento(date);
     }
-    // curso.setDataProcessamento(nome);
-
     resultado.Cursos.add(curso);
   }
 

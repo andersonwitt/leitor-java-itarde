@@ -51,14 +51,12 @@ public class CursosDAO {
 
   public int insert(Curso curso) throws SQLException {
     pstInsert.clearParameters();
-
-    pstInsert.setInt(1, curso.getId());
-    pstInsert.setString(2, curso.getNome());
-    pstInsert.setInt(3, curso.getPeriodoInicial());
-    pstInsert.setInt(4, curso.getPeriodoFinal());
-    pstInsert.setString(5, curso.getDataProcessamento().toString());
-    pstInsert.setInt(6, curso.getSequencia());
-    pstInsert.setString(7, curso.getVersaoLayout());
+    pstInsert.setString(1, curso.getNome());
+    pstInsert.setInt(2, curso.getPeriodoInicial());
+    pstInsert.setInt(3, curso.getPeriodoFinal());
+    pstInsert.setString(4, curso.getDataProcessamento().toString());
+    pstInsert.setInt(5, curso.getSequencia());
+    pstInsert.setString(6, curso.getVersaoLayout());
 
     pstInsert.execute();
 
