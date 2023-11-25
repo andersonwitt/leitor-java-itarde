@@ -223,7 +223,7 @@ public class Layout extends JFrame {
         try {
           // Connection conexao = ConnectionFactory.getConnection("127.0.0.1", 3306,
           // "sistema", "root", "@Root");
-          Connection conexao = ConnectionFactory.getConnection("127.0.0.1", 3306, "SistemaEscolar", "root", "unesc");
+          Connection conexao = ConnectionFactory.getConnection("26.100.201.167", 3306, "SistemaEscolar", "root", "unesc");
           if (conexao != null) {
             System.out.println("CONECTOU !!!!");
 
