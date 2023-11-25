@@ -2,7 +2,7 @@ package Listas;
 
 import java.util.HashMap;
 
-public class Disciplina {
+public class Disciplinas {
   public final static HashMap<String, String> items = new HashMap<String, String>() {
     {
       // 1ª Fase
