@@ -16,7 +16,7 @@ public class FasesDAO {
 
   private String selectAll = "select * from tb_fases";
   private String selectWhere = "select * from tb_curso where id = ?";
-  private String insert = "insert into tb_curso(nomeCurso, qtdDisciplinas, qtdProfessores) values (?, ?, ?)";
+  private String insert = "insert into tb_fases(nome, quantidade_disciplinas, quantidade_professores, id_curso) values (?, ?, ?, ?)";
 
   private PreparedStatement pstSelectAll;
   private PreparedStatement pstSelectWhere;
@@ -47,9 +47,12 @@ public class FasesDAO {
     return listaFase;
   }
 
-  public int insert(Curso curso) throws SQLException {
+  public int insert(Fase fase) throws SQLException {
     pstInsert.clearParameters();
-    pstInsert.setString(1, curso.getNome());
+    pstInsert.setString(1, fase.getNome());
+    pstInsert.setInt(2, fase.getQuantidadeDisciplinas());
+    pstInsert.setInt(3, fase.getQuantidadeProfessores());
+    pstInsert.setInt(4, fase.getCursoId());
     pstInsert.execute();
 
     ResultSet r = pstInsert.getGeneratedKeys();

@@ -8,12 +8,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import database.model.Curso;
+import database.model.Disciplina;
 
 public class DisciplinasDAO {
 
   private String selectAll = "select * from tb_curso";
   private String selectWhere = "select * from tb_curso where id = ?";
-  private String insert = "insert into tb_curso(nomeCurso, qtdDisciplinas, qtdProfessores) values (?, ?, ?)";
+  private String insert = "insert into tb_disciplinas(id, dia_semana, quantidade_professores, id_curso) values (?, ?, ?, ?)";
 
   private PreparedStatement pstSelectAll;
   private PreparedStatement pstSelectWhere;
@@ -46,11 +47,12 @@ public class DisciplinasDAO {
     return listaCurso;
   }
 
-  public int insert(Curso curso) throws SQLException {
+  public int insert(Disciplina disciplina) throws SQLException {
     pstInsert.clearParameters();
-    pstInsert.setString(1, curso.getNome());
-    pstInsert.setString(2, curso.getPeriodoInicial());
-    pstInsert.setString(3,curso.getPeriodoFinal());
+    pstInsert.setString(1, disciplina.getId());
+    pstInsert.setInt(2, disciplina.getCodigoDiaSemana());
+    pstInsert.setInt(3, disciplina.getQuantidadeProfessores());
+    pstInsert.setInt(4,disciplina.getCursoId());
     pstInsert.execute();
 
     ResultSet r = pstInsert.getGeneratedKeys();

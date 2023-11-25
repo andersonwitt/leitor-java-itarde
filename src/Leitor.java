@@ -34,7 +34,8 @@ public class Leitor {
     String quantidadeProfessores = line.substring(9, 11);
 
     Disciplina disciplina = new Disciplina();
-
+    
+    disciplina.setId(codigoDisciplina);
     disciplina.setNome(Integer.parseInt(codigoDisciplina));
     disciplina.setCodigoDiaSemana(Integer.parseInt(diaSemana));
     disciplina.setDiaSemana(diaSemana);
