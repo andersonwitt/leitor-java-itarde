@@ -59,7 +59,7 @@ public class Leitor {
     System.out.println("Inicio da Fase: ");
     System.out.println(caracteres.substring(0, 7));
     String faseInicial = caracteres.substring(0, 7);
-    curso.setVersaoLayout(faseInicial);
+    curso.setPeriodoInicial(Integer.parseInt(faseInicial.substring(5, 7)));
     String faseFinal = "";
 
     separadorFase = caracteres.substring(7, caracteres.length()).toLowerCase().indexOf("fase");
@@ -69,7 +69,7 @@ public class Leitor {
       System.out.println("Final da Fase: ");
       System.out.println(caracteres.substring(0, 7));
       faseFinal = caracteres.substring(0, 7);
-      curso.setVersaoLayout(faseFinal);
+      curso.setPeriodoFinal(Integer.parseInt(faseFinal.substring(5, 7)));
     }
     System.out.println("Sequencial: ");
     System.out.println(caracteres.substring(7, 14));

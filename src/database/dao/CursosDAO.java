@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -14,7 +15,7 @@ public class CursosDAO {
 
   private String selectAll = "select * from tb_curso";
   private String selectWhere = "select * from tb_curso where id = ?";
-  private String insert = "insert into tb_cursos(nome, data_processamento, periodo_inicial, periodo_final, sequencial, versao_layout) values (?, ?, ?, ?, ?, ?)";
+  private String insert = "insert into tb_cursos(nome, periodo_inicial, periodo_final,  data_processamento, sequencial, versao_layout) values (?, ?, ?, ?, ?, ?)";
 
   private PreparedStatement pstSelectAll;
   private PreparedStatement pstSelectWhere;
