@@ -186,7 +186,7 @@ public class Layout extends JFrame {
 
               result.Cursos.forEach(item -> {
                 mdlCurso.addRow(
-                    new Object[] { item.getId(), item.getNome(), item.getDataProcessamento(), item.getPeriodoInicial(),
+                    new Object[] { item.getNome(), item.getDataProcessamento(), item.getPeriodoInicial(),
                         item.getPeriodoFinal(), item.getSequencia(), item.getVersaoLayout() });
               });
 
@@ -196,7 +196,7 @@ public class Layout extends JFrame {
 
               result.Fases.forEach(item -> {
                 mdlFase
-                    .addRow(new Object[] { item.getId(), item.getNome(), item.getQuantidadeDisciplinas(),
+                    .addRow(new Object[] { item.getNome(), item.getQuantidadeDisciplinas(),
                         item.getQuantidadeProfessores() });
               });
 

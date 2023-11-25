@@ -5,6 +5,7 @@ import database.model.Curso;
 import utils.DateUtils;
 import database.model.Professor;
 import database.model.Disciplina;
+import database.model.Fase;
 
 public class Leitor {
 
@@ -14,21 +15,17 @@ public class Leitor {
     _arquivo = arquivo;
   }
 
-  void GetFase(String line, LeitorResultado resultado) {
-    String fase = line.substring(1, 8);
-    System.out.println("Nome Fase:");
-    System.out.println(fase);
+  Fase GetFase(String line) {
+    Fase fase = new Fase();
 
+    String nome = line.substring(1, 8);
     String quantidadeDisciplina = line.substring(8, 10);
-    System.out.println("Quantidade Disciplina:");
-    System.out.println(quantidadeDisciplina);
-
     String quantidadeProfessores = line.substring(10, 12);
-    System.out.println("Quantidade Professores:");
-    System.out.println(quantidadeProfessores);
+    fase.setNome(nome);
+    fase.setQuantidadeDisciplinas(Integer.parseInt(quantidadeDisciplina));
+    fase.setQuantidadeProfessores(Integer.parseInt(quantidadeProfessores));
 
-    // resultado.Fases.add(new Fase(fase, quantidadeDisciplina,
-    // quantidadeProfessores));
+    return fase;
   }
 
   Disciplina GetDisciplina(String line) {
@@ -55,8 +52,6 @@ public class Leitor {
     int separadorFase = line.toLowerCase().indexOf("fase");
     var caracteres = line.substring(separadorFase, line.length());
 
-    System.out.println("Inicio da Fase: ");
-    System.out.println(caracteres.substring(0, 7));
     String faseInicial = caracteres.substring(0, 7);
     curso.setVersaoLayout(faseInicial);
     String faseFinal = "";
@@ -65,16 +60,12 @@ public class Leitor {
     caracteres = caracteres.substring(7, caracteres.length());
 
     if (separadorFase != -1) {
-      System.out.println("Final da Fase: ");
-      System.out.println(caracteres.substring(0, 7));
       faseFinal = caracteres.substring(0, 7);
       curso.setVersaoLayout(faseFinal);
     }
-    System.out.println("Sequencial: ");
-    System.out.println(caracteres.substring(7, 14));
+
     curso.setSequencia(Integer.parseInt(caracteres.substring(7, 14)));
 
-    System.out.println("Versão do layout: ");
     String sequencial = caracteres.substring(14, 17);
     curso.setVersaoLayout(sequencial);
 
@@ -115,7 +106,7 @@ public class Leitor {
         if (Consts.IsTypeOf(ConstEnum.Curso, line)) {
           GetCurso(line, resultado);
         } else if (Consts.IsTypeOf(ConstEnum.Fase, line)) {
-          GetFase(line, resultado);
+          resultado.Fases.add(GetFase(line));
         } else if (Consts.IsTypeOf(ConstEnum.Disciplina, line)) {
           resultado.Disciplinas.add(GetDisciplina(line));
         } else if (Consts.IsTypeOf(ConstEnum.Professor, line)) {
