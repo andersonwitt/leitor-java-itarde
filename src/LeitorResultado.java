@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-
 import database.model.Curso;
 import database.model.Disciplina;
 import database.model.Fase;

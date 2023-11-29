@@ -44,9 +44,9 @@ public class DisciplinasDAO {
     return listaDisciplina;
   }
 
-  public int insert(Disciplina disciplina) throws SQLException {
+  public Object insert(Disciplina disciplina) throws SQLException {
     if (idDeveSerUnico(Integer.parseInt(disciplina.getId()))) {
-      JOptionPane.showMessageDialog(null, "A disciplina " + disciplina.getNome() + " já existe no banco de dados!");
+      // JOptionPane.showMessageDialog(null, "A disciplina " + disciplina.getNome() + " já existe no banco de dados!");
       return Integer.parseInt(disciplina.getId());
     }
 

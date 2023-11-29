@@ -12,4 +12,12 @@ public class NumberUtils {
 
         return result;
     }
+    public static int tryParseInt(String value) {
+        int result = -1;
+        try {
+            result = Integer.parseInt(value);
+        } catch (NumberFormatException e) {}
+
+        return result;
+    }
 }
