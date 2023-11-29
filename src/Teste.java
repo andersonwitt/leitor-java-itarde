@@ -14,7 +14,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class Teste {
-
   public static void main(String[] args) {
     try {
       Connection conexao = ConnectionFactory.getConnection("26.100.201.167", 3306, "SistemaEscolar", "root", "unesc");

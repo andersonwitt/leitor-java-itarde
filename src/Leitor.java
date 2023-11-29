@@ -55,7 +55,6 @@ public class Leitor {
     var caracteres = line.substring(separadorFase, line.length());
 
     String faseInicial = caracteres.substring(0, 7);
-    // curso.setPeriodoInicial(Integer.parseInt(faseInicial.substring(5, 7)));
     curso.setPeriodoInicial(faseInicial);
     String faseFinal = "";
 
@@ -64,7 +63,6 @@ public class Leitor {
 
     if (separadorFase != -1) {
       faseFinal = caracteres.substring(0, 7);
-      // curso.setPeriodoFinal(Integer.parseInt(faseFinal.substring(5, 7)));
       curso.setPeriodoFinal(faseFinal);
     }
 
@@ -115,7 +113,6 @@ public class Leitor {
           resultado.Disciplinas.add(GetDisciplina(line));
         } else if (Consts.IsTypeOf(ConstEnum.Professor, line)) {
           resultado.Professores.add(GetProfessor(line));
-          // GetTituloProfessor(line)));
         }
 
         line = in.readLine();
