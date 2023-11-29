@@ -5,13 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-
-import javax.swing.JOptionPane;
-
 import database.model.Curso;
 import utils.DateUtils;
 
@@ -53,12 +47,12 @@ public class CursosDAO {
     return listaCurso;
   }
 
-  public int insert(Curso curso) throws SQLException {
-    var cursoExistente = CursoJaExiste(curso);
-    if (cursoExistente != -1) {
-      JOptionPane.showMessageDialog(null,
-          "O curso " + curso.getNome() + " já existe no banco de dados!");
-      return cursoExistente;
+  public int[] insert(Curso curso) throws SQLException {
+    Integer cursoExistente = CursoJaExiste(curso);
+    if (!cursoExistente.equals(-1)) {
+      // JOptionPane.showMessageDialog(null,
+      // "O curso " + curso.getNome() + " já existe no banco de dados!");
+      return new int[] { 1, cursoExistente };
     }
 
     pstInsert.clearParameters();
@@ -73,11 +67,12 @@ public class CursosDAO {
 
     ResultSet r = pstInsert.getGeneratedKeys();
     if (r.next()) {
-      return r.getInt(1);
+      return new int[] { 0, r.getInt(1) }; 
     } else {
-      return -9;
+      return new int[] { 0, -9 }; 
     }
   }
+
   private int CursoJaExiste(Curso curso) throws SQLException {
     pstSelectWhere.clearParameters();
     pstSelectWhere.setString(1, curso.getNome().trim().toUpperCase());

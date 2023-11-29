@@ -6,10 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
-import javax.swing.JOptionPane;
-
-import database.model.Curso;
 import database.model.Fase;
 
 public class FasesDAO {
@@ -46,10 +42,10 @@ public class FasesDAO {
     return listaFase;
   }
 
-  public int insert(Fase fase) throws SQLException {
+  public Object insert(Fase fase) throws SQLException {
     if (NomeDeveSerUnico(fase.getNome())) {
-      JOptionPane.showMessageDialog(null, "A " + fase.getNome() + " já existe no banco de dados!");
-      return -1;
+      // JOptionPane.showMessageDialog(null, "A " + fase.getNome() + " já existe no banco de dados!");
+      return fase.getNome();
     }
 
     pstInsert.clearParameters();

@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import database.model.Professor;
 
 public class ProfessoresDAO {
@@ -44,10 +43,10 @@ public class ProfessoresDAO {
     return listaProfessor;
   }
 
-  public int insert(Professor professor) throws SQLException {
+  public Object insert(Professor professor) throws SQLException {
     if (NomeDeveSerUnico(professor.getNome())) {
-      JOptionPane.showMessageDialog(null, "O professor " + professor.getNome() + " já existe no banco de dados.");
-      return -1;
+      // JOptionPane.showMessageDialog(null, "O professor " + professor.getNome() + " já existe no banco de dados.");
+      return professor.getNome();
     }
 
     pstInsert.clearParameters();
@@ -67,7 +66,7 @@ public class ProfessoresDAO {
   private boolean NomeDeveSerUnico(String nome) throws SQLException {
     ArrayList<Professor> professores = this.selectAll();
     boolean resultado = false;
-    
+
     for (Professor professor : professores) {
       if (professor.getNome().trim().toUpperCase().equals(nome.trim().toUpperCase())) {
         resultado = true;
